@@ -1,0 +1,11 @@
+{
+    "arrowParens": "avoid",
+    "tabWidth": 3,
+    "singleQuote": true,
+    "semi": true,
+    "singleAttributePerLine": true,
+    "jsxSingleQuote": true,
+    "endOfLine": "auto",
+    "plugins": ["prettier-plugin-organize-imports"],
+    "organizeImportsSkipDestructiveCodeActions": true
+}
