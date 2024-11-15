@@ -1,0 +1,5 @@
+python-jose
+uvicorn
+fastapi
+asyncpg
+greenlet
