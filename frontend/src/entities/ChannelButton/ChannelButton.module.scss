@@ -1,0 +1,27 @@
+.channel {
+    min-width: 66px;
+    min-height: 46px;
+    background-color: #171a1f;
+    border: 0;
+    padding: 4px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+
+    &.current {
+        background-color: #ffcc00;
+    }
+
+    &.current span {
+        color: #171a1f;
+    }
+
+    span {
+        font-size: 13px;
+        font-weight: 500;
+        color: #ffcc00;
+    }
+}

@@ -1,0 +1,32 @@
+.message {
+   position: relative; /* Для позиционирования псевдоэлемента */
+   padding: 10px;
+   font-size: 14px;
+   border-radius: 10px;
+   background: #111; /* Фон элемента */
+}
+
+.message.my::before {
+   content: '';
+   position: absolute;
+   inset: -1px;
+   border-radius: inherit; /* Повторяет закругление родителя */
+   background: linear-gradient(
+      to right,
+      #2f3542,
+      #111111
+   ); /* Градиентная рамка */
+   z-index: -1; /* Помещаем градиент под содержимое */
+}
+.message.notmy::before {
+   content: '';
+   position: absolute;
+   inset: -1px;
+   border-radius: inherit; /* Повторяет закругление родителя */
+   background: linear-gradient(
+      to left,
+      #2f3542,
+      #111111
+   ); /* Градиентная рамка */
+   z-index: -1; /* Помещаем градиент под содержимое */
+}
