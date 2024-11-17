@@ -11,6 +11,7 @@
    line-height: 1;
    font-family: 'Inter', sans-serif;
    color: var(--text-color);
+   scrollbar-width: none;
 }
 
 body {

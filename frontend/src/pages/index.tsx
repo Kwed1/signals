@@ -6,11 +6,6 @@ import subIcon from 'assets/icons/filter-sub.svg';
 import contactIcon from 'assets/icons/filter-contact.svg';
 import Switch from 'entities/Switch/Switch';
 import Message from 'entities/Message/Message';
-import ChannelButton from 'entities/ChannelButton/ChannelButton';
-import signalsIcon from 'assets/icons/signals-icon.png';
-import setupIcon from 'assets/icons/setup-icon.png';
-import pdIcon from 'assets/icons/pd-icon.png';
-import defiIcon from 'assets/icons/defi-icon.png';
 
 export default function Homepage() {
 	return (
@@ -45,13 +40,12 @@ export default function Homepage() {
 				<Message text='Message...' my={false}/>
 				<Message text='Message...' my={true}/>
 				<Message text='Message...' my={false}/>
+				<Message text='Message...' my={true}/>
+				<Message text='Message...' my={false}/>
+				<Message text='Message...' my={true}/>
+				<Message text='Message...' my={false}/>
 			</div>
-			<div className={styles.channels}>
-				<ChannelButton name="Signals" icon={signalsIcon} current={true}/>
-				<ChannelButton name="Setup" icon={setupIcon}/>
-				<ChannelButton name="P&D" icon={pdIcon}/>
-				<ChannelButton name="Defi" icon={defiIcon}/>
-			</div>
+			
 		</div>
 	)
 }

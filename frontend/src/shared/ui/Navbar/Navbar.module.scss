@@ -1,0 +1,17 @@
+.channels {
+   position: fixed;
+   width: 100%;
+   display: flex;
+   flex-wrap: nowrap;
+   gap: 25px;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: 12px;
+   bottom: 16px;
+   padding: 0 19px;
+   overflow-x: scroll;
+}
+
+.pad {
+    margin-bottom: 80px;
+}
