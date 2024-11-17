@@ -3,13 +3,14 @@
    padding: 10px;
    font-size: 14px;
    border-radius: 10px;
-   background: #111; /* Фон элемента */
+   background: #171A1F; /* Фон элемента */
 }
 
 .message.my::before {
    content: '';
    position: absolute;
-   inset: -1px;
+   inset: 0;
+   margin: -1px;
    border-radius: inherit; /* Повторяет закругление родителя */
    background: linear-gradient(
       to right,
@@ -21,7 +22,8 @@
 .message.notmy::before {
    content: '';
    position: absolute;
-   inset: -1px;
+   inset: 0;
+   margin: -1px;
    border-radius: inherit; /* Повторяет закругление родителя */
    background: linear-gradient(
       to left,

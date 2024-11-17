@@ -1,6 +1,7 @@
+import CreateChannel from 'pages/CreateChannel';
 import { Route, Routes } from 'react-router-dom';
 import Homepage from '../../pages';
-import CreateChannel from 'pages/CreateChannel';
+import CreateChannel2 from 'pages/CreateChannel2';
 
 const AppRouter = () => {
    return (
@@ -13,6 +14,10 @@ const AppRouter = () => {
             <Route
                path='/create-channel'
                element={<CreateChannel />}
+            />
+            <Route
+               path='/create-channel2'
+               element={<CreateChannel2 />}
             />
          </Routes>
       </>

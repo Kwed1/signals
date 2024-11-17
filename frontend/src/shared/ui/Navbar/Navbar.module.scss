@@ -13,5 +13,9 @@
 }
 
 .pad {
-    margin-bottom: 80px;
+    height: 80px;
+
+    &.color {
+        background-color: #171A1F;
+    }
 }

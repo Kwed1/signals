@@ -1,28 +1,5 @@
 .CreateChannel {
     padding: 19px 19px 0 19px;
-
-    .heading {
-        font-size: 16px;
-        font-weight: 600;
-        text-align: center;
-        padding: 13px 0;
-        border-radius: 10px;
-        background-color: #171A1F;
-        margin-bottom: 22px;
-    }
-}
-
-.pinBtn {
-    width: 100%;
-    margin-top: 10px;
-    padding: 13px 0;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #000;
-    -webkit-tap-highlight-color: transparent;
-    border: 0;
-    background-color: var(--accent-color);
 }
 
 .copy {
