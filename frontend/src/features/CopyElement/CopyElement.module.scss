@@ -1,0 +1,31 @@
+.element {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #878787;
+}
+
+.wrapper {
+    border-radius: 15px;
+    padding: 10px;
+    background-color: #171A1F;
+
+    & > div {
+        background-color: #212429;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 11px 10px;
+        border-radius: 5px;
+    }
+    
+    .text {
+        font-size: 16px;
+        font-weight: 400;
+    }
+}
