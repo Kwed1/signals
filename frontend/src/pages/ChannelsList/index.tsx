@@ -4,10 +4,11 @@ import Search from 'entities/Search/Search';
 import ChannelCard from 'entities/ChannelCard/ChannelCard';
 import useModalsStore from 'shared/store/useModalsStore';
 import ChoiceModal from 'features/ChoiceModal/ChoiceModal';
+import DeleteModal from 'features/DeleteModal/DeleteModal';
 
 export default function ChannelsList() {
 
-    const {choiceModalOpen} = useModalsStore();
+    const {choiceModalOpen, deleteModalOpen} = useModalsStore();
 
     return (
         <>
@@ -26,6 +27,7 @@ export default function ChannelsList() {
                 </div>
             </div>
             {choiceModalOpen && <ChoiceModal/>}
+            {deleteModalOpen && <DeleteModal/>}
         </>
     )
 }

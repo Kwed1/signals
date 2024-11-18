@@ -8,7 +8,7 @@ interface ModalsStore {
 }
 
 const useModalsStore = create<ModalsStore>((set) => ({
-    choiceModalOpen: false,
+    choiceModalOpen: true,
     setChoiceModalOpen: (value) => set({choiceModalOpen: value}),
     deleteModalOpen: false,
     setDeleteModalOpen: (value) => set({deleteModalOpen: value})

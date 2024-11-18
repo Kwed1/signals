@@ -1,0 +1,49 @@
+.modal {
+    width: 92%;
+    padding: 25px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-color: #171a1f;
+    border-radius: 15px;
+
+    h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 14px;
+        font-weight: 400;
+        color: #878787;
+        margin-bottom: 40px;
+    }
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.buttons button{
+    padding: 13px;
+    border-radius: 10px;
+    width: 50%;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.cancel {
+    background-color: transparent;
+    border: 1px solid #878787;
+    color: #fff;
+}
+
+.delete {
+    background-color: var(--accent-color);
+    color: #000;
+    border: 0;
+}
