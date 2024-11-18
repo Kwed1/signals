@@ -27,9 +27,7 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
                     if token is None:
                         raise UserUnauthorizedException()
                     identity_service = AuthService(db, TokenService())
-                    user_id = await identity_service.authorized_user(
-                        token
-                    )
+                    user_id = await identity_service.authorized_user(token)
                     request.state.login_id = user_id
             except HTTPException as exc:
                 return JSONResponse(

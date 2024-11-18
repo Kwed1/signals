@@ -1,6 +1,5 @@
 from datetime import timedelta
 
-import requests
 from fastapi import Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -10,14 +9,19 @@ from starlette import status
 from backend.auth.models.AppUser import AppUser
 from backend.auth.schema.TokenSchema import TokenSchema
 from backend.auth.service.token import TokenService
-from backend.core.config import oauth2_scheme, SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
+from backend.core.config import (
+    oauth2_scheme,
+    SECRET_KEY,
+    ALGORITHM,
+    ACCESS_TOKEN_EXPIRE_MINUTES,
+)
 from backend.core.database import get_db
+
 
 class UserNotFoundException(HTTPException):
     def __init__(self):
-        super().__init__(
-            detail="User not found", status_code=status.HTTP_404_NOT_FOUND
-        )
+        super().__init__(detail="User not found", status_code=status.HTTP_404_NOT_FOUND)
+
 
 class UserUnauthorizedException(HTTPException):
     def __init__(self) -> None:
@@ -35,6 +39,7 @@ class InvalidCredentialsException(HTTPException):
             headers={"WWW-Authenticate": "Bearer"},
         )
 
+
 class AuthService:
     def __init__(
         self,
@@ -44,9 +49,7 @@ class AuthService:
         self.db = db
         self.token_service = token_service
 
-    async def authorized_user(
-        self, token: str = Depends(oauth2_scheme)
-    ):
+    async def authorized_user(self, token: str = Depends(oauth2_scheme)):
         try:
             payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
             user_id: int = payload.get("user_id")
@@ -87,9 +90,7 @@ class AuthService:
             try:
                 image = await self._get_image(telegram_id)
 
-                user = AppUser(
-                    telegram_id=telegram_id, username=username
-                )
+                user = AppUser(telegram_id=telegram_id, username=username)
                 session.add(user)
                 await session.flush()
                 await session.refresh(user)

@@ -26,6 +26,7 @@ async def init_db():
             pass
         pass
 
+
 async def get_db():
     async with engine.begin() as conn:
         await conn.run_sync(BaseEntity.metadata.create_all)

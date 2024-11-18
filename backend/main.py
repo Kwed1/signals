@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 
 from backend.core.database import init_db
-from backend.routes import auth
+from backend.routes import auth, channel, message
 
 app = FastAPI()
+
 
 @app.on_event("startup")
 async def startup():
@@ -19,5 +20,7 @@ def add_swagger():
     openapi_schema["security"] = [{"BearerAuth": []}]
     app.openapi_schema = openapi_schema
 
-app.include_router(auth.router, prefix="/auth", tags=["auth"])
 
+app.include_router(auth.router, prefix="/auth", tags=["auth"])
+app.include_router(channel.router, prefix="/channel", tags=["channel"])
+app.include_router(message.router, prefix="/message", tags=["message"])
