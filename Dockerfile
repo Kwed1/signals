@@ -12,4 +12,4 @@ RUN python -m pip install --upgrade pip \
 EXPOSE 8003
 
 # Запускаем Uvicorn с указанием правильного пути
-CMD ["uvicorn", "Backend.main:app", "--host", "0.0.0.0", "--port", "8003"]
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8003"]
