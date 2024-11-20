@@ -9,6 +9,11 @@ from backend.service.base_service import BaseService
 
 
 class ChannelService(BaseService):
+    async def get_all_channels(self):
+        query = select(Channel)
+        result = await self.session.execute(query)
+        return result.scalars().all()
+    
     async def _get_channel(self, channel_id: int):
         query = select(Channel).where(Channel.channel_id == channel_id)
         result = await self.session.execute(query)
