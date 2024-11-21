@@ -6,6 +6,11 @@ from backend.service.channel_service import ChannelService
 
 router = APIRouter()
 
+
+@router.get("/", response_model=list[ChannelSchama])
+async def get_channels(service: ChannelService = Depends()):
+    return await service.get_all_channels()
+
 @router.get('/{channel_id}', response_model=ChannelSchama)
 async def get_channel(channel_id: int, service: ChannelService = Depends()):
     return await service.get_channel(channel_id)
