@@ -1,20 +1,19 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { useError } from '../../app/ErrorContext';
-/* import useTokenStore from '../store/useTokenStore' */
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import useTokenStore from 'shared/store/useTokenStore'
+import { useError } from '../../app/ErrorContext'
 
 const useApi = () => {
    const { setError } = useError();
-   /*   const {getToken} = useTokenStore() */
-   /* const _accessToken = getToken() */
+   const {getToken} = useTokenStore()
+   const _accessToken = getToken()
    const api = axios.create({
-      baseURL: 'http://95.169.201.222:8003/',
+      baseURL: 'http://95.169.201.222:8000/',
    });
 
    api.interceptors.request.use(
       config => {
-         const token = 0;
-         if (token) {
-            config.headers['Authorization'] = `Bearer ${token}`;
+         if (_accessToken) {
+            config.headers['Authorization'] = `Bearer ${_accessToken}`;
          }
          return config;
       },
