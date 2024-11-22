@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from fastapi import Depends, HTTPException
+import requests
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from jose import jwt, JWTError
