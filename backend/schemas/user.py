@@ -1,5 +1,9 @@
+from datetime import datetime
 from pydantic import BaseModel
 
 
 class UserSchema(BaseModel):
-    pass
+    username: str
+    telegram_id: int
+    subscription: str | None = None
+    end_at: datetime

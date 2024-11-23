@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 from backend.core.database import init_db
-from backend.routes import auth, channel, message
+from backend.routes import auth, channel, message, user
 
 app = FastAPI()
 
@@ -25,6 +25,7 @@ def add_swagger():
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(channel.router, prefix="/channel", tags=["channel"])
 app.include_router(message.router, prefix="/message", tags=["message"])
+app.include_router(user.router, prefix="/user", tags=["user"])
 
 origins = ["*"]
 app.add_middleware(

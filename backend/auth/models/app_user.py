@@ -1,4 +1,5 @@
-from sqlalchemy import Column, BigInteger, String
+from datetime import datetime
+from sqlalchemy import Column, BigInteger, DateTime, String
 
 from backend.entities.base_entity import BaseEntity
 
@@ -8,3 +9,5 @@ class AppUser(BaseEntity):
 
     telegram_id = Column(BigInteger, unique=True, nullable=False)
     username = Column(String, nullable=False)
+    subscription = Column(String, nullable=True)
+    end_at = Column(DateTime, default=datetime.utcnow())
