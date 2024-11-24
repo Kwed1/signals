@@ -1,0 +1,17 @@
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+}
+
+.nickname {
+    font-size: 16px;
+    font-weight: 400;
+}

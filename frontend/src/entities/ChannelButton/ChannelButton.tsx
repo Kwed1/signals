@@ -1,3 +1,4 @@
+import Icon from 'shared/ui/Icon/Icon';
 import styles from './ChannelButton.module.scss';
 
 interface ChannelButtonProps {
@@ -9,7 +10,7 @@ interface ChannelButtonProps {
 export default function ChannelButton({name, icon, current = false}: ChannelButtonProps) {
     return (
         <button className={`${styles.channel} ${current ? styles.current : ''}`}>
-            <img src={icon} alt="" />
+            <Icon className={styles.icon} id={icon} color='transparent' lineColor={current ? '#171A1F' : '#FFCC00'}/>
             <span>{name}</span>
         </button>
     )

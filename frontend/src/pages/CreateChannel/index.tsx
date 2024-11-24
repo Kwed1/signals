@@ -1,13 +1,12 @@
 import ChannelData from 'features/ChannelData/ChannelData';
 import styles from './CreateChannel.module.scss';
 import CopyElement from 'features/CopyElement/CopyElement';
-import PageHeading from 'shared/ui/PageHeading/PageHeading';
 import PinButton from 'shared/ui/PinButton/PinButton';
 
 export default function CreateChannel() {
    return (
       <div className={styles.CreateChannel}>
-         <PageHeading text='Create a channel'/>
+         <p className={styles.pageHeading}>Create a channel</p>
          <ChannelData />
          <PinButton/>
          <div className={styles.copy}>

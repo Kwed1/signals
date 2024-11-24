@@ -15,21 +15,21 @@ export default function Navbar() {
          <div className={`${styles.pad} ${location.pathname === '/create-channel2' ? styles.color : ''}`}></div>
          <div className={styles.channels}>
             <ChannelButton
-               name='Signals'
-               icon={signalsIcon}
+               name='Home'
+               icon={'home'}
                current={true}
             />
             <ChannelButton
                name='Setup'
-               icon={setupIcon}
+               icon={'channels'}
             />
             <ChannelButton
                name='P&D'
-               icon={pdIcon}
+               icon={'arrows'}
             />
             <ChannelButton
                name='Defi'
-               icon={defiIcon}
+               icon={'arrows'}
             />
          </div>
       </>

@@ -1,7 +1,6 @@
-import PageHeading from 'shared/ui/PageHeading/PageHeading';
-import styles from './Users.module.scss';
 import cancelIcon from 'assets/icons/cancel-icon.png';
 import okeyIcon from 'assets/icons/okey-icon.png';
+import styles from './Users.module.scss';
 
 export default function Users() {
    const users = [
@@ -15,7 +14,7 @@ export default function Users() {
 
    return (
       <div className={styles.Users}>
-         <PageHeading text='Users' />
+         <p className={styles.pageHeading}>Users</p>
          <table>
             <thead>
                <tr>
@@ -30,13 +29,17 @@ export default function Users() {
                      <td>{user.name}</td>
                      <td>{user.subDate}</td>
                      <td>
-                        {
-                            user.isActive ? (
-                                <img src={okeyIcon} alt="" />
-                            ) : (
-                                <img src={cancelIcon} alt="" />
-                            )
-                        }
+                        {user.isActive ? (
+                           <img
+                              src={okeyIcon}
+                              alt=''
+                           />
+                        ) : (
+                           <img
+                              src={cancelIcon}
+                              alt=''
+                           />
+                        )}
                      </td>
                   </tr>
                ))}
