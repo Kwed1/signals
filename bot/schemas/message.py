@@ -1,6 +1,5 @@
 from enum import Enum
 from pydantic import BaseModel
-from pydantic import BaseModel
 
 
 class AttachmentTypes(str, Enum):
@@ -13,17 +12,10 @@ class AttachmentTypes(str, Enum):
 class AttachmentSchema(BaseModel):
     attachment_type: AttachmentTypes
     attachment_id: str
-
+    
 
 class MessageSchema(BaseModel):
     message_id: int
     channel_id: int
     text: str | None = None
     attachments: list[AttachmentSchema]
-
-
-class AddMessageSchema(BaseModel):
-    message_id: int
-    channel_id: int
-    text: str | None = None
-    attachments: list[AttachmentSchema] | None = None
