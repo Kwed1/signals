@@ -1,0 +1,44 @@
+.panel {
+    position: fixed;
+    bottom: 15px;
+    left: 19px;
+    right: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.navbtn {
+    width: 66px;
+    height: 46px;
+    background-color: #171A1F;
+    font-size: 13px;
+    font-weight: 500;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+
+    span {
+        color: #FFCC00;
+    }
+
+    &.current {
+        background-color: #FFCC00;
+        
+        span {
+            color: #171A1F;
+        }
+    }
+}
+
+.pad {
+    height: 80px;
+
+    &.color {
+        background-color: #171A1F;
+    }
+}
