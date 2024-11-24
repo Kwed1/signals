@@ -6,7 +6,7 @@ COPY . /app/
 
 # Устанавливаем зависимости
 RUN python -m pip install --upgrade pip \
-    && pip install --no-cache-dir -r /app/backend/requirements.txt
+    && pip install --no-cache-dir -r /app/requirements.txt
 
 # Открываем порт 8000
 EXPOSE 8003
