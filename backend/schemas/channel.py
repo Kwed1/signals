@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 
+from backend.schemas.message import MessageSchema
+
 
 class ChannelSchama(BaseModel):
     name: str
@@ -7,6 +9,7 @@ class ChannelSchama(BaseModel):
     channel_id: int
     link: str
     admin_id: int
+    last_message: MessageSchema | None = None
 
 
 class UpdateChannelSchema(BaseModel):

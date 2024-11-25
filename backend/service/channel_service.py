@@ -9,10 +9,22 @@ from backend.service.base_service import BaseService
 
 
 class ChannelService(BaseService):
+    def _model_validate_chanel(self, channel: Channel):
+        return ChannelSchama(
+            channel_id=channel.channel_id,
+            name=channel.name,
+            icon_type=channel.icon_type,
+            link=channel.link,
+            admin_id=channel.admin_id,
+            last_message=MessageSchema.model_validate(
+                channel.messages[-1], from_attributes=True
+            ) if channel.messages else None
+        )
+    
     async def get_all_channels(self):
         query = select(Channel)
-        result = await self.session.execute(query)
-        return result.scalars().all()
+        channels = (await self.session.execute(query)).scalars().all()
+        return [self._model_validate_chanel(channel) for channel in channels]
     
     async def _get_channel(self, channel_id: int):
         query = select(Channel).where(Channel.channel_id == channel_id)
@@ -23,7 +35,7 @@ class ChannelService(BaseService):
         channel = await self._get_channel(channel_id)
         if not channel:
             raise ChannelNotFound()
-        return ChannelSchama.model_validate(channel, from_attributes=True)
+        return self._model_validate_chanel(channel)
 
     async def add_channel(self, form: ChannelSchama):
         channel = await self._get_channel(form.channel_id)
