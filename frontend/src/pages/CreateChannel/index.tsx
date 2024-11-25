@@ -1,15 +1,18 @@
 import ChannelData from 'features/ChannelData/ChannelData';
 import styles from './CreateChannel.module.scss';
 import CopyElement from 'features/CopyElement/CopyElement';
-import PinButton from 'shared/ui/PinButton/PinButton';
 import AdminNav from 'shared/ui/AdminNav/AdminNav';
 import { useState } from 'react';
 import useChannelsStore from 'shared/store/useChannelsStore';
 import useTokenStore from 'shared/store/useTokenStore';
 import useApi from 'shared/utils/ApiResponseHandler';
 import { Channel } from 'shared/types';
+import useModalsStore from 'shared/store/useModalsStore';
+import PinModal from 'features/PinModal/PinModal';
 
 export default function CreateChannel() {
+
+   const {pinModalOpen, setPinModalOpen} = useModalsStore();
 
    const [formData, setFormData] = useState({
       name: '',
@@ -59,7 +62,7 @@ export default function CreateChannel() {
          <div className={styles.CreateChannel}>
             <p className={styles.pageHeading}>Create a channel</p>
             <ChannelData name={formData.name} onNameChange={handleChange('name')}/>
-            <PinButton/>
+            <button className={styles.pinBtn} onClick={() => setPinModalOpen(true)}>Pin this post</button>
             <div className={styles.copy}>
                <CopyElement name='Channel Link' text='t.me/DnTyXst8UMASmJvt' value={formData.link} onValueChange={handleChange('link')}/>
                <CopyElement name='Channel ID' text='1001234567890' value={formData.channel_id} onValueChange={handleChange('channel_id')}/>
@@ -68,6 +71,7 @@ export default function CreateChannel() {
             <button className={styles.createBtn} onClick={createChannel}>Create</button>
          </div>
          <AdminNav/>
+         {pinModalOpen && <PinModal/>}
       </>
    );
 }
