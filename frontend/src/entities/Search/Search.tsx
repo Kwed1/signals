@@ -5,7 +5,7 @@ interface SearchProps {
    value?: string;
    defaultValue?: string;
    placeholder?: string;
-   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function Search({

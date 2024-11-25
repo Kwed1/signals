@@ -11,7 +11,7 @@ export default function ChannelButton({name, icon, current = false}: ChannelButt
     return (
         <button className={`${styles.channel} ${current ? styles.current : ''}`}>
             <Icon className={styles.icon} id={icon} color='transparent' lineColor={current ? '#171A1F' : '#FFCC00'}/>
-            <span>{name}</span>
+            <span>{name.length > 5 ? `${name.slice(0,5)}..` : name}</span>
         </button>
     )
 }

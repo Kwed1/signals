@@ -1,37 +1,25 @@
 import ChannelButton from 'entities/ChannelButton/ChannelButton';
 import styles from './Navbar.module.scss';
 import { useLocation } from 'react-router-dom';
+import useChannelsStore from 'shared/store/useChannelsStore';
 
 export default function Navbar() {
 
    const location = useLocation();
+   const {channels} = useChannelsStore();
    let pathname = location.pathname;
-
-   if(pathname === '/create-channel' || pathname === '/create-channel2' || pathname === '/channels' || pathname === '/users') {
+   
+   if(pathname === '/create-channel' || pathname === '/channels' || pathname === '/users') {
       return null;
    }
 
    return (
       <>
-         <div className={`${styles.pad} ${location.pathname === '/create-channel2' ? styles.color : ''}`}></div>
+         <div className={`${styles.pad}`}></div>
          <div className={styles.channels}>
-            <ChannelButton
-               name='Home'
-               icon={'home'}
-               current={true}
-            />
-            <ChannelButton
-               name='Setup'
-               icon={'channels'}
-            />
-            <ChannelButton
-               name='P&D'
-               icon={'arrows'}
-            />
-            <ChannelButton
-               name='Defi'
-               icon={'arrows'}
-            />
+            {channels && channels.map(channel => (
+               <ChannelButton key={channel.channel_id} name={channel.name} icon={channel.icon_type}/>
+            ))}
          </div>
       </>
    );

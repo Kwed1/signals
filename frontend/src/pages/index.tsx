@@ -6,11 +6,34 @@ import subIcon from 'assets/icons/filter-sub.svg';
 import contactIcon from 'assets/icons/filter-contact.svg';
 import Switch from 'entities/Switch/Switch';
 import Message from 'entities/Message/Message';
-import Profile from 'features/Profile/Profile';
-import Icon from 'shared/ui/Icon/Icon';
 import { NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+import useChannelsStore from 'shared/store/useChannelsStore';
+import useTokenStore from 'shared/store/useTokenStore';
+import { Channel } from 'shared/types';
+import useApi from 'shared/utils/ApiResponseHandler';
 
 export default function Homepage() {
+
+	const { setChannels } = useChannelsStore();
+   const { getToken } = useTokenStore();
+   let _accessToken = getToken();
+   const api = useApi();
+
+   
+   const fetchChannels = async () => {
+      const res = await api<Channel[]>({ url: '/channel/', method: 'GET' });
+      if (res) {
+         setChannels(res);
+      }
+   };
+
+   useEffect(() => {
+      if (_accessToken) {
+         fetchChannels();
+      }
+   }, [_accessToken]);
+
 	return (
 		<div className={styles.homepage}>
 			<div className={styles.top}>
