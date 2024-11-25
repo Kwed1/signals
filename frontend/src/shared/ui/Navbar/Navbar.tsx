@@ -5,6 +5,11 @@ import { useLocation } from 'react-router-dom';
 export default function Navbar() {
 
    const location = useLocation();
+   let pathname = location.pathname;
+
+   if(pathname === '/create-channel' || pathname === '/create-channel2' || pathname === '/channels' || pathname === '/users') {
+      return null;
+   }
 
    return (
       <>

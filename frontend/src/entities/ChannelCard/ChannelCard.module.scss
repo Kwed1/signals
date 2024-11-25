@@ -3,6 +3,18 @@
     align-items: flex-start;
     column-gap: 8px;
     height: 66px;
+    position: relative;
+
+    &.selected::before {
+        content: "";
+        position: absolute;
+        top: -3px;
+        bottom: -3px;
+        left: -19px;
+        right: -19px;
+        background-color: #1B1B1B;
+        z-index: -1;
+    }
 }
 
 .imageWrapper {

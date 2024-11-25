@@ -27,6 +27,7 @@ export default tseslint.config(
             "prettier/prettier": 0,
             "@typescript-eslint/no-explicit-any": 0,
             "@typescript-eslint/no-unused-vars": "warn",
+            'prefer-const': 0
         },
     }
 );

@@ -5,3 +5,10 @@ export interface Channel {
     link: string;
     admin_id: number;
 }
+
+export interface User {
+    username: string;
+    telegram_id: number;
+    subscription: null | boolean;
+    end_at: string;
+}
