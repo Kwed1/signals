@@ -37,7 +37,6 @@ export default function ChannelsList() {
    );
 
    useEffect(() => {
-      if (channels.length > 0) return;
       if (_accessToken) {
          fetchChannels();
       }

@@ -6,6 +6,7 @@ interface ChannelsStore {
     selectedChannel: Channel | null,
     setSelected: (value: Channel | null) => void;
     setChannels: (value: Channel[]) => void;
+    updateChannels: (value: Channel) => void;
     deleteChannel: (value: number) => void;
 }
 
@@ -14,6 +15,10 @@ const useChannelsStore = create<ChannelsStore>((set,get) => ({
     selectedChannel: null,
     setSelected: (value) => set({selectedChannel: value}),
     setChannels: (value) => set({channels: value}),
+    updateChannels: (value) => {
+        const currentChannels = get().channels;
+        set({channels: [...currentChannels, value]})
+    },
     deleteChannel: (value) => {
         const currentChannels = get().channels;
         if(currentChannels) {
