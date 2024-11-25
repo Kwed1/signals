@@ -1,7 +1,7 @@
 import ChannelData from 'features/ChannelData/ChannelData';
 import CopyElement from 'features/CopyElement/CopyElement';
 import PinModal from 'features/PinModal/PinModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useChannelsStore from 'shared/store/useChannelsStore';
 import useModalsStore from 'shared/store/useModalsStore';
 import useTokenStore from 'shared/store/useTokenStore';
@@ -12,8 +12,15 @@ import styles from './CreateChannel.module.scss';
 
 export default function CreateChannel() {
    const { pinModalOpen, setPinModalOpen } = useModalsStore();
+   const {
+      updateChannels,
+      editing,
+      selectedChannel,
+      updateChannelById,
+      setEditing,
+   } = useChannelsStore();
 
-   const [formData, setFormData] = useState({
+   const [formData, setFormData] = useState<Channel>({
       name: '',
       icon_type: 'home',
       channel_id: '',
@@ -21,7 +28,18 @@ export default function CreateChannel() {
       admin_id: '',
    });
 
-   const { updateChannels } = useChannelsStore();
+   useEffect(() => {
+      if (editing && selectedChannel !== null) {
+         setFormData({
+            name: selectedChannel.name,
+            icon_type: selectedChannel.icon_type,
+            channel_id: selectedChannel.channel_id,
+            link: selectedChannel.link,
+            admin_id: selectedChannel.admin_id,
+         });
+      }
+   }, [editing, selectedChannel]);
+
    const { getToken } = useTokenStore();
    let _accessToken = getToken();
    const api = useApi();
@@ -59,12 +77,29 @@ export default function CreateChannel() {
       if (Object.values(formData).some(value => !value)) return;
       if (!_accessToken) return;
       const res = await api<Channel>({
-         url: '/channel/',
-         method: 'POST',
+         url: editing ? `/channel/${selectedChannel?.channel_id}` : '/channel/',
+         method: editing ? 'PUT' : 'POST',
          data: formData,
       });
-      if (res) {
+      if (!editing && res) {
          updateChannels(res);
+         setFormData({
+            name: '',
+            admin_id: '',
+            channel_id: '',
+            icon_type: 'home',
+            link: ''
+         })
+      } else if (res && editing && selectedChannel) {
+         updateChannelById(Number(selectedChannel.channel_id), res);
+         setEditing(false);
+         setFormData({
+            name: '',
+            admin_id: '',
+            channel_id: '',
+            icon_type: 'home',
+            link: ''
+         })
       }
    };
 
@@ -106,7 +141,7 @@ export default function CreateChannel() {
                className={styles.createBtn}
                onClick={createChannel}
             >
-               Create
+               {editing ? 'Update' : 'Create'}
             </button>
          </div>
          <AdminNav />
