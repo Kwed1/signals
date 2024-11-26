@@ -14,8 +14,6 @@ export default function CreateChannel() {
       updateChannels,
       editing,
       selectedChannel,
-      updateChannelById,
-      setEditing,
    } = useChannelsStore();
    const navigate = useNavigate();
 
