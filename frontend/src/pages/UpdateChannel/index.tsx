@@ -10,14 +10,16 @@ import AdminNav from 'shared/ui/AdminNav/AdminNav';
 import useApi from 'shared/utils/ApiResponseHandler';
 import styles from './UpdateChannel.module.scss'
 import { useNavigate } from 'react-router-dom';
+import IconSelect from 'features/IconSelect/IconSelect';
 
 export default function UpdateChannel() {
-   const { pinModalOpen, setPinModalOpen } = useModalsStore();
+   const { pinModalOpen, setPinModalOpen, iconModalOpen } = useModalsStore();
    const {
       editing,
       selectedChannel,
       updateChannelById,
       setEditing,
+      setSelected
    } = useChannelsStore();
    const navigate = useNavigate();
 
@@ -47,10 +49,10 @@ export default function UpdateChannel() {
 
    const handleChange =
       (key: keyof typeof formData) =>
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-         const { value } = e.target;
+      (value: React.ChangeEvent<HTMLInputElement> | string) => {
+         const finalValue = typeof value === 'string' ? value : value.target.value;
 
-         if (value === '') {
+         if (finalValue === '') {
             setFormData(prev => ({
                ...prev,
                [key]: '',
@@ -60,7 +62,7 @@ export default function UpdateChannel() {
 
          if (
             (key === 'channel_id' || key === 'admin_id') &&
-            Number.isNaN(Number(value))
+            Number.isNaN(Number(finalValue))
          ) {
             return;
          }
@@ -69,8 +71,8 @@ export default function UpdateChannel() {
             ...prev,
             [key]:
                key === 'channel_id' || key === 'admin_id'
-                  ? Number(value)
-                  : value,
+                  ? Number(finalValue)
+                  : finalValue,
          }));
       };
 
@@ -91,7 +93,8 @@ export default function UpdateChannel() {
             channel_id: '',
             icon_type: 'home',
             link: ''
-         })
+         });
+         setSelected(null);
          navigate('/channels')
       }
    };
@@ -102,6 +105,7 @@ export default function UpdateChannel() {
             <p className={styles.pageHeading}>Update channel</p>
             <ChannelData
                name={formData.name}
+               icon={formData.icon_type}
                onNameChange={handleChange('name')}
             />
             <button
@@ -139,6 +143,7 @@ export default function UpdateChannel() {
          </div>
          <AdminNav />
          {pinModalOpen && <PinModal />}
+         {iconModalOpen && <IconSelect onIconChange={handleChange('icon_type')}/>}
       </>
    );
 }

@@ -1,4 +1,3 @@
-import galleryIcon from 'assets/icons/gallery-import.svg';
 import React from 'react';
 import useModalsStore from 'shared/store/useModalsStore';
 import styles from './ChannelData.module.scss';
@@ -8,11 +7,22 @@ import Icon from 'shared/ui/Icon/Icon';
 interface ChannelDataProps {
    name: string;
    onNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+   icon: string;
 }
 
 export default function ChannelData({ name, onNameChange }: ChannelDataProps) {
    const { setIconModalOpen } = useModalsStore();
-   const {selectedIcon} = useChannelsStore();
+   const {editing, selectedChannel} = useChannelsStore();
+
+   const icon = () => {
+      if(editing && selectedChannel && selectedChannel.icon_type) {
+         return selectedChannel.icon_type;
+      } else if(!editing && selectedChannel && selectedChannel.icon_type) {
+         return selectedChannel.icon_type;
+      } else {
+         return 'gallery'
+      }
+   }
 
    return (
       <div className={styles.channelData}>
@@ -22,7 +32,7 @@ export default function ChannelData({ name, onNameChange }: ChannelDataProps) {
          >
             <Icon
                className={styles.icon}
-               id={selectedIcon ? selectedIcon : 'gallery'}
+               id={icon()}
             />
          </button>
          <input

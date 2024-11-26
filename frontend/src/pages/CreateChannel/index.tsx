@@ -14,31 +14,17 @@ import IconSelect from 'features/IconSelect/IconSelect';
 export default function CreateChannel() {
    const {
       updateChannels,
-      editing,
-      selectedChannel,
    } = useChannelsStore();
    const navigate = useNavigate();
    const {iconModalOpen} = useModalsStore();
 
    const [formData, setFormData] = useState<Channel>({
       name: '',
-      icon_type: 'home',
+      icon_type: '',
       channel_id: '',
       link: '',
       admin_id: '',
    });
-
-   useEffect(() => {
-      if (editing && selectedChannel !== null) {
-         setFormData({
-            name: selectedChannel.name,
-            icon_type: selectedChannel.icon_type,
-            channel_id: selectedChannel.channel_id,
-            link: selectedChannel.link,
-            admin_id: selectedChannel.admin_id,
-         });
-      }
-   }, [editing, selectedChannel]);
 
    const { getToken } = useTokenStore();
    let _accessToken = getToken();
@@ -46,10 +32,10 @@ export default function CreateChannel() {
 
    const handleChange =
       (key: keyof typeof formData) =>
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-         const { value } = e.target;
+      (value: React.ChangeEvent<HTMLInputElement> | string) => {
+         const finalValue = typeof value === 'string' ? value : value.target.value;
 
-         if (value === '') {
+         if (finalValue === '') {
             setFormData(prev => ({
                ...prev,
                [key]: '',
@@ -59,7 +45,7 @@ export default function CreateChannel() {
 
          if (
             (key === 'channel_id' || key === 'admin_id') &&
-            Number.isNaN(Number(value))
+            Number.isNaN(Number(finalValue))
          ) {
             return;
          }
@@ -68,8 +54,8 @@ export default function CreateChannel() {
             ...prev,
             [key]:
                key === 'channel_id' || key === 'admin_id'
-                  ? Number(value)
-                  : value,
+                  ? Number(finalValue)
+                  : finalValue,
          }));
       };
 
@@ -99,6 +85,7 @@ export default function CreateChannel() {
          <div className={styles.CreateChannel}>
             <p className={styles.pageHeading}>Create a channel</p>
             <ChannelData
+               icon={formData.icon_type}
                name={formData.name}
                onNameChange={handleChange('name')}
             />
@@ -126,11 +113,11 @@ export default function CreateChannel() {
                className={styles.createBtn}
                onClick={createChannel}
             >
-               {editing ? 'Update' : 'Create'}
+               Create
             </button>
          </div>
          <AdminNav />
-         {iconModalOpen && <IconSelect/>}
+         {iconModalOpen && <IconSelect onIconChange={handleChange('icon_type')}/>}
       </>
    );
 }
