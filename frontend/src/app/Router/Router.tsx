@@ -1,9 +1,9 @@
 import CreateChannel from 'pages/CreateChannel';
 import { Route, Routes } from 'react-router-dom';
 import Homepage from '../../pages';
-import CreateChannel2 from 'pages/CreateChannel2';
 import ChannelsList from 'pages/ChannelsList';
 import Users from 'pages/Users';
+import UpdateChannel from 'pages/UpdateChannel';
 
 const AppRouter = () => {
    return (
@@ -18,8 +18,8 @@ const AppRouter = () => {
                element={<CreateChannel />}
             />
             <Route
-               path='/create-channel2'
-               element={<CreateChannel2 />}
+               path='/update-channel'
+               element={<UpdateChannel />}
             />
             <Route
                path='/channels'
@@ -27,7 +27,7 @@ const AppRouter = () => {
             />
             <Route
                path='/users'
-               element={<Users />}
+                  element={<Users />}
             />
          </Routes>
       </>

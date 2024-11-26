@@ -7,7 +7,7 @@ const useApi = () => {
    const {getToken} = useTokenStore()
    const _accessToken = getToken()
    const api = axios.create({
-      baseURL: 'http://95.169.201.222:8000/',
+      baseURL: 'http://95.169.201.222:8003/',
    });
 
    api.interceptors.request.use(

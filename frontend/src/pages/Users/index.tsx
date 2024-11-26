@@ -1,50 +1,71 @@
 import cancelIcon from 'assets/icons/cancel-icon.png';
 import okeyIcon from 'assets/icons/okey-icon.png';
 import styles from './Users.module.scss';
+import AdminNav from 'shared/ui/AdminNav/AdminNav';
+import { useEffect } from 'react';
+import useTokenStore from 'shared/store/useTokenStore';
+import useApi from 'shared/utils/ApiResponseHandler';
+import { User } from 'shared/types';
+import useUsersStore from 'shared/store/useUsersStore';
 
 export default function Users() {
-   const users = [
-      { name: 'Morgan Martinez', subDate: '2024-10-21', isActive: true },
-      { name: 'Morgan Martinez', subDate: '2024-10-21', isActive: false },
-      { name: 'Morgan Martinez', subDate: '2024-10-21', isActive: true },
-      { name: 'Morgan Martinez', subDate: '2024-10-21', isActive: false },
-      { name: 'Morgan Martinez', subDate: '2024-10-21', isActive: true },
-      { name: 'Morgan Martinez', subDate: '2024-10-21', isActive: false },
-   ];
+   
+   const {users, setUsers} = useUsersStore();
+   const {getToken} = useTokenStore();
+   let _accessToken = getToken();
+
+   const api = useApi();
+
+   const fetchUsers = async() => {
+      const res = await api<User[]>({url: '/user/', method: 'GET'});
+      if(res) {
+         setUsers(res);
+      }
+   }
+
+   useEffect(() => {
+      if(users.length > 0) return;
+      if(_accessToken) {
+         fetchUsers();
+      }
+   }, [_accessToken])
 
    return (
-      <div className={styles.Users}>
-         <p className={styles.pageHeading}>Users</p>
-         <table>
-            <thead>
-               <tr>
-                  <th>Name</th>
-                  <th>Sub date</th>
-                  <th>Subs</th>
-               </tr>
-            </thead>
-            <tbody>
-               {users.map((user, index) => (
-                  <tr key={index}>
-                     <td>{user.name}</td>
-                     <td>{user.subDate}</td>
-                     <td>
-                        {user.isActive ? (
-                           <img
-                              src={okeyIcon}
-                              alt=''
-                           />
-                        ) : (
-                           <img
-                              src={cancelIcon}
-                              alt=''
-                           />
-                        )}
-                     </td>
+      <>
+         <div className={styles.Users}>
+            <p className={styles.pageHeading}>Users</p>
+            <table>
+               <thead>
+                  <tr>
+                     <th style={{width: '55%'}}>Name</th>
+                     <th style={{width: '30%'}}>Sub date</th>
+                     <th style={{width: '15%'}}>Subs</th>
                   </tr>
-               ))}
-            </tbody>
-         </table>
-      </div>
+               </thead>
+               <tbody>
+                  {users?.map((user, index) => (
+                     <tr key={index}>
+                        <td>{user.username}</td>
+                        <td>{user.end_at.split('T')[0]}</td>
+                        <td>
+                           {user.subscription !== null ? (
+                              <img
+                                 src={okeyIcon}
+                                 alt=''
+                              />
+                           ) : (
+                              <img
+                                 src={cancelIcon}
+                                 alt=''
+                              />
+                           )}
+                        </td>
+                     </tr>
+                  ))}
+               </tbody>
+            </table>
+         </div>
+         <AdminNav/>
+      </>
    );
 }

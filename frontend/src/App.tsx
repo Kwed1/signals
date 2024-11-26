@@ -3,8 +3,7 @@ import { ErrorProvider, useError } from 'app/ErrorContext'
 import AppRouter from 'app/Router/Router'
 import { useEffect, useRef } from 'react'
 import { BrowserRouter } from 'react-router-dom'
-import AdminNav from 'shared/ui/AdminNav/AdminNav'
-// import Navbar from 'shared/ui/Navbar/Navbar'
+import Navbar from 'shared/ui/Navbar/Navbar'
 import ErrorSnackbar from 'shared/ui/Snackbar/Snackbar'
 
 function App() {
@@ -12,8 +11,7 @@ function App() {
     <ErrorProvider>
       <BrowserRouter>
         <AppContent/>
-        {/* <Navbar/> */}
-        <AdminNav/>
+        <Navbar/>
       </BrowserRouter>
     </ErrorProvider>
   )
