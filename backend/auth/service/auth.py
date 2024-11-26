@@ -80,7 +80,7 @@ class AuthService:
             user = await self._create_user(user_id, username)
         access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token = self.token_service.create_access_token(
-            data={"sub": username, "user_id": user_id},
+            data={"sub": user.username, "user_id": user.telegram_id, "is_admin": user.is_admin},
             expires_delta=access_token_expires,
         )
 
@@ -93,9 +93,8 @@ class AuthService:
 
                 user = AppUser(telegram_id=telegram_id, username=username)
                 session.add(user)
-                await session.flush()
-                await session.refresh(user)
                 await session.commit()
+                await session.refresh(user)
                 return user
             except Exception:
                 await session.rollback()

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
+from backend.auth.auth_middleware import AuthenticationMiddleware
 from backend.core.database import init_db
 from backend.routes import auth, channel, message, user
 
@@ -35,3 +36,4 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.add_middleware(AuthenticationMiddleware)
