@@ -12,6 +12,7 @@ import useChannelsStore from 'shared/store/useChannelsStore';
 import useTokenStore from 'shared/store/useTokenStore';
 import { Channel } from 'shared/types';
 import useApi from 'shared/utils/ApiResponseHandler';
+import MessagesContainer from 'entities/MessagesContainer/MessagesContainer';
 
 export default function Homepage() {
 
@@ -20,7 +21,7 @@ export default function Homepage() {
    let _accessToken = getToken();
    const api = useApi();
 
-   
+
    const fetchChannels = async () => {
       const res = await api<Channel[]>({ url: '/channel/', method: 'GET' });
       if (res) {
@@ -60,20 +61,7 @@ export default function Homepage() {
 					<Switch/>
 				</div>
 			</div>
-			<div className={styles.messages}>
-				<Message text='Message...' my={false}/>
-				<Message text='Message...' my={true}/>
-				<Message text='Message...' my={false}/>
-				<Message text='Message...' my={true}/>
-				<Message text='Message...' my={false}/>
-				<Message text='Message...' my={true}/>
-				<Message text='Message...' my={false}/>
-				<Message text='Message...' my={true}/>
-				<Message text='Message...' my={false}/>
-				<Message text='Message...' my={true}/>
-				<Message text='Message...' my={false}/>
-			</div>
-			
+			<MessagesContainer channel_id={123}/>
 		</div>
 	)
 }

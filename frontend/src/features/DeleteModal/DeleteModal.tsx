@@ -6,7 +6,7 @@ import useChannelsStore from 'shared/store/useChannelsStore';
 
 export default function DeleteModal() {
 
-    const {selectedChannel, deleteChannel} = useChannelsStore();
+    const {selectedChannel, deleteChannel, setSelected} = useChannelsStore();
     const {setDeleteModalOpen, setChoiceModalOpen} = useModalsStore();
     const {getToken} = useTokenStore();
     let _accessToken = getToken();
@@ -17,9 +17,9 @@ export default function DeleteModal() {
         if(!_accessToken) return;
         const res = await api({url: `/channel/${selectedChannel.channel_id}`, method: "DELETE"});
         if(res) {
+            deleteChannel(selectedChannel.channel_id as number);
             setDeleteModalOpen(false);
-            setChoiceModalOpen(false);
-            deleteChannel(selectedChannel.channel_id);
+            setSelected(null)
         }
     }
 

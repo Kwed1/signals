@@ -12,3 +12,16 @@ export interface User {
     subscription: null | boolean;
     end_at: string;
 }
+
+
+export interface Message {
+    message_id: number;
+    channel_id: number;
+    text: string;
+    attachments: Attachment[];
+}
+
+export interface Attachment {
+    attachment_type: string
+    attachment_id: string
+}
