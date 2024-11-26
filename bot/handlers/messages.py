@@ -1,12 +1,16 @@
+import logging
 from pprint import pprint
-from aiogram import F, Router
+import re
+from aiogram import  Router
 from aiogram.types import Message
 
+from core.logger import get_logger
 from schemas.message import AttachmentSchema, AttachmentTypes, MessageSchema
 import api.messages as messages_api
 
 
 router = Router()
+logger = get_logger(__name__)
 
 
 @router.message()
@@ -55,12 +59,20 @@ async def handle_media_message(message: Message):
                 attachment_id=message.voice.file_id
             )
         )
-
-    await messages_api.create_message(
-        MessageSchema(
-            message_id=message.message_id,
-            channel_id=message.chat.id,
-            text=message.text,
-            attachments=attacments
+        
+    direction = re.findall(r"Direction:\s*(\w+)", message.text)
+    if not direction:
+        logger.error(f"Direction not found in message: {message.message_id}")
+    else:
+        error = await messages_api.create_message(
+            MessageSchema(
+                message_id=message.message_id,
+                channel_id=message.chat.id,
+                text=message.text,
+                attachments=attacments,
+                direction=direction[0] if direction else None
+            )
         )
-    )
+
+        if error:
+            logger.error(f"Status: {error['status']}, Message: {error['message']["detail"]}")

@@ -20,6 +20,7 @@ class MessageSchema(BaseModel):
     channel_id: int
     text: str | None = None
     attachments: list[AttachmentSchema]
+    direction: str
 
 
 class AddMessageSchema(BaseModel):
@@ -27,3 +28,4 @@ class AddMessageSchema(BaseModel):
     channel_id: int
     text: str | None = None
     attachments: list[AttachmentSchema] | None = None
+    direction: str
