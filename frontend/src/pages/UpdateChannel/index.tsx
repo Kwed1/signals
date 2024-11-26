@@ -1,17 +1,19 @@
 import ChannelData from 'features/ChannelData/ChannelData';
 import CopyElement from 'features/CopyElement/CopyElement';
+import PinModal from 'features/PinModal/PinModal';
 import { useEffect, useState } from 'react';
 import useChannelsStore from 'shared/store/useChannelsStore';
+import useModalsStore from 'shared/store/useModalsStore';
 import useTokenStore from 'shared/store/useTokenStore';
 import { Channel } from 'shared/types';
 import AdminNav from 'shared/ui/AdminNav/AdminNav';
 import useApi from 'shared/utils/ApiResponseHandler';
-import styles from './CreateChannel.module.scss';
+import styles from './UpdateChannel.module.scss'
 import { useNavigate } from 'react-router-dom';
 
-export default function CreateChannel() {
+export default function UpdateChannel() {
+   const { pinModalOpen, setPinModalOpen } = useModalsStore();
    const {
-      updateChannels,
       editing,
       selectedChannel,
       updateChannelById,
@@ -76,12 +78,13 @@ export default function CreateChannel() {
       if (Object.values(formData).some(value => !value)) return;
       if (!_accessToken) return;
       const res = await api<Channel>({
-         url: '/channel/',
-         method: 'POST',
+         url: `/channel/${selectedChannel?.channel_id}`,
+         method: 'PUT',
          data: formData,
       });
-      if (res) {
-         updateChannels(res);
+      if (res && editing && selectedChannel) {
+         updateChannelById(Number(selectedChannel.channel_id), res);
+         setEditing(false);
          setFormData({
             name: '',
             admin_id: '',
@@ -96,11 +99,17 @@ export default function CreateChannel() {
    return (
       <>
          <div className={styles.CreateChannel}>
-            <p className={styles.pageHeading}>Create a channel</p>
+            <p className={styles.pageHeading}>Update channel</p>
             <ChannelData
                name={formData.name}
                onNameChange={handleChange('name')}
             />
+            <button
+               className={styles.pinBtn}
+               onClick={() => setPinModalOpen(true)}
+            >
+               Pin this post
+            </button>
             <div className={styles.copy}>
                <CopyElement
                   name='Channel Link'
@@ -125,10 +134,11 @@ export default function CreateChannel() {
                className={styles.createBtn}
                onClick={createChannel}
             >
-               {editing ? 'Update' : 'Create'}
+               Update
             </button>
          </div>
          <AdminNav />
+         {pinModalOpen && <PinModal />}
       </>
    );
 }

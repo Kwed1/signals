@@ -13,7 +13,7 @@ export default function ChoiceModal() {
         <div className={styles.modal}>
             <button className={styles.delete} onClick={() => setDeleteModalOpen(true)}>Delete</button>
             <button className={styles.edit} onClick={() => {
-                if(selectedChannel) navigate('/create-channel');
+                if(selectedChannel) navigate('/update-channel');
                 setEditing(true);
             }}>Edit</button>
         </div>

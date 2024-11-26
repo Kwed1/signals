@@ -9,7 +9,7 @@ export default function Navbar() {
    const {channels} = useChannelsStore();
    let pathname = location.pathname;
    
-   if(pathname === '/create-channel' || pathname === '/channels' || pathname === '/users') {
+   if(pathname === '/create-channel' || pathname === '/channels' || pathname === '/users' || pathname === '/update-channel') {
       return null;
    }
 

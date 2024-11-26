@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Homepage from '../../pages';
 import ChannelsList from 'pages/ChannelsList';
 import Users from 'pages/Users';
+import UpdateChannel from 'pages/UpdateChannel';
 
 const AppRouter = () => {
    return (
@@ -15,6 +16,10 @@ const AppRouter = () => {
             <Route
                path='/create-channel'
                element={<CreateChannel />}
+            />
+            <Route
+               path='/update-channel'
+               element={<UpdateChannel />}
             />
             <Route
                path='/channels'
