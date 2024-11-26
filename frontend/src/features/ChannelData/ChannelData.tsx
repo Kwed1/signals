@@ -1,6 +1,9 @@
 import galleryIcon from 'assets/icons/gallery-import.svg';
 import React from 'react';
+import useModalsStore from 'shared/store/useModalsStore';
 import styles from './ChannelData.module.scss';
+import useChannelsStore from 'shared/store/useChannelsStore';
+import Icon from 'shared/ui/Icon/Icon';
 
 interface ChannelDataProps {
    name: string;
@@ -8,18 +11,20 @@ interface ChannelDataProps {
 }
 
 export default function ChannelData({ name, onNameChange }: ChannelDataProps) {
+   const { setIconModalOpen } = useModalsStore();
+   const {selectedIcon} = useChannelsStore();
+
    return (
       <div className={styles.channelData}>
-         <div className={styles.imageWrapper}>
-            <input
-               className={styles.inputFile}
-               type='file'
+         <button
+            className={styles.imageWrapper}
+            onClick={() => setIconModalOpen(true)}
+         >
+            <Icon
+               className={styles.icon}
+               id={selectedIcon ? selectedIcon : 'gallery'}
             />
-            <img
-               src={galleryIcon}
-               alt=''
-            />
-         </div>
+         </button>
          <input
             className={styles.channelName}
             type='text'

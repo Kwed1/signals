@@ -7,6 +7,8 @@ interface ModalsStore {
    setDeleteModalOpen: (value: boolean) => void;
    pinModalOpen: boolean;
    setPinModalOpen: (value: boolean) => void;
+   iconModalOpen: boolean;
+   setIconModalOpen: (value: boolean) => void;
 }
 
 const useModalsStore = create<ModalsStore>(set => ({
@@ -16,6 +18,8 @@ const useModalsStore = create<ModalsStore>(set => ({
    setDeleteModalOpen: value => set({ deleteModalOpen: value }),
    pinModalOpen: false,
    setPinModalOpen: value => set({ pinModalOpen: value }),
+   iconModalOpen: false,
+   setIconModalOpen: value => set({ iconModalOpen: value }),
 }));
 
 export default useModalsStore;

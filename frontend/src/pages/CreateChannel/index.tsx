@@ -8,6 +8,8 @@ import AdminNav from 'shared/ui/AdminNav/AdminNav';
 import useApi from 'shared/utils/ApiResponseHandler';
 import styles from './CreateChannel.module.scss';
 import { useNavigate } from 'react-router-dom';
+import useModalsStore from 'shared/store/useModalsStore';
+import IconSelect from 'features/IconSelect/IconSelect';
 
 export default function CreateChannel() {
    const {
@@ -16,6 +18,7 @@ export default function CreateChannel() {
       selectedChannel,
    } = useChannelsStore();
    const navigate = useNavigate();
+   const {iconModalOpen} = useModalsStore();
 
    const [formData, setFormData] = useState<Channel>({
       name: '',
@@ -127,6 +130,7 @@ export default function CreateChannel() {
             </button>
          </div>
          <AdminNav />
+         {iconModalOpen && <IconSelect/>}
       </>
    );
 }

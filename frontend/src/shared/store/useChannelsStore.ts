@@ -5,6 +5,8 @@ interface ChannelsStore {
     channels: Channel[];
     selectedChannel: Channel | null,
     editing: boolean;
+    selectedIcon: string | null;
+    setSelectedIcon: (value: string | null) => void;
     setEditing: (value: boolean) => void;
     setSelected: (value: Channel | null) => void;
     setChannels: (value: Channel[]) => void;
@@ -17,6 +19,8 @@ const useChannelsStore = create<ChannelsStore>((set,get) => ({
     channels: [],
     selectedChannel: null,
     editing: false,
+    selectedIcon: null,
+    setSelectedIcon: value => set({selectedIcon: value}),
     setEditing: (value) => set({editing: value}),
     setSelected: (value) => set({selectedChannel: value}),
     setChannels: (value) => set({channels: value}),
