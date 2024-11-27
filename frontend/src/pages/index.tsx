@@ -21,7 +21,6 @@ export default function Homepage() {
    let _accessToken = getToken();
    const api = useApi();
 
-
    const fetchChannels = async () => {
       const res = await api<Channel[]>({ url: '/channel/', method: 'GET' });
       if (res) {
