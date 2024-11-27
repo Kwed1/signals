@@ -7,15 +7,7 @@ from backend.routes import auth, channel, message, user
 
 app = FastAPI()
 
-origins = ["*"]
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-app.add_middleware(AuthenticationMiddleware)
+
 
 @app.on_event("startup")
 async def startup():
@@ -36,3 +28,14 @@ app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(channel.router, prefix="/channel", tags=["channel"])
 app.include_router(message.router, prefix="/message", tags=["message"])
 app.include_router(user.router, prefix="/user", tags=["user"])
+
+app.add_middleware(AuthenticationMiddleware)
+
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
