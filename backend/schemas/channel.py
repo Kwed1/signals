@@ -10,7 +10,16 @@ class ChannelSchama(BaseModel):
     link: str
     admin_id: int
     last_message: MessageSchema | None = None
+    pinned_message: MessageSchema | None = None
 
+
+class CreateChannelSchema(BaseModel):
+    name: str
+    icon_type: str
+    channel_id: int
+    link: str
+    admin_id: int
+    
 
 class UpdateChannelSchema(BaseModel):
     name: str | None = None

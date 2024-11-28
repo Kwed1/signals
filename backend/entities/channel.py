@@ -17,3 +17,4 @@ class Channel(BaseEntity):
     @declared_attr
     def messages(cls):
         return relationship("Message", back_populates="channel", lazy="selectin")
+    

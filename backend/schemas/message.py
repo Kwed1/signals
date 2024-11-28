@@ -2,6 +2,8 @@ from enum import Enum
 from pydantic import BaseModel
 from pydantic import BaseModel
 
+from backend.core.enums import DirectionTypes
+
 
 class AttachmentTypes(str, Enum):
     photo = 'photo'
@@ -28,4 +30,4 @@ class AddMessageSchema(BaseModel):
     channel_id: int
     text: str | None = None
     attachments: list[AttachmentSchema] | None = None
-    direction: str
+    direction: DirectionTypes
