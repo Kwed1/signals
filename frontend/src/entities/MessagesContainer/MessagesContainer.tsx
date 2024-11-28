@@ -1,20 +1,27 @@
-import { useEffect, useRef, useState } from 'react';
-import useTokenStore from 'shared/store/useTokenStore';
-import { Message as IMessage} from 'shared/types';
-import useApi from 'shared/utils/ApiResponseHandler';
 import CircularProgress from '@mui/material/CircularProgress';
-import styles from './MessagesContainer.module.scss';
 import Message from 'entities/Message/Message';
+import { Dispatch, SetStateAction, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+   import useTokenStore from 'shared/store/useTokenStore';
+import { Direction, Message as IMessage } from 'shared/types';
+import useApi from 'shared/utils/ApiResponseHandler';
+import styles from './MessagesContainer.module.scss';
 
 interface MessagesContainerProps {
-   channel_id: number;
+   channel_id: number | null;
+   search?: string;
+   messages: IMessage[];
+   setMessages: Dispatch<SetStateAction<IMessage[]>>;
+   direction: Direction;
 }
 
 export default function MessagesContainer({
    channel_id,
+   search,
+   messages,
+   setMessages,
+   direction
 }: MessagesContainerProps) {
-   const [messages, setMessages] = useState<IMessage[]>([]);
    const [fetching, setFetching] = useState<boolean>(true);
    const [firstLoad, setFirstLoad] = useState<boolean>(true);
    const [stopLoad, setStopLoad] = useState<boolean>(false);
@@ -36,6 +43,28 @@ export default function MessagesContainer({
       stopLoadRef.current = stopLoad;
    }, [stopLoad]);
 
+   useEffect(() => {
+      setMessages([]);
+      setFetching(true);
+      setFirstLoad(true);
+      setStopLoad(false);
+      setPage(0);
+   }, [channel_id, direction])
+
+   useEffect(() => {
+      console.log('Channel ID changed:', channel_id);
+   }, [channel_id]);
+
+   const findedMessages = useMemo(() => {
+      if (search) {
+         return messages.filter(message =>
+            message.text.toLowerCase().includes(search.toLowerCase()),
+         );
+      } else {
+         return [];
+      }
+   }, [messages, search]);
+
    const scrollHandler = () => {
       if (fetchingRef.current || stopLoadRef.current) return;
       if (
@@ -43,18 +72,18 @@ export default function MessagesContainer({
             (document.documentElement.scrollTop + window.innerHeight) <
          100
       ) {
-         setFetching(true)
+         setFetching(true);
       }
    };
 
    const fetchMessages = async () => {
-      if(firstLoad) setFirstLoad(false);
+      if (firstLoad) setFirstLoad(false);
       const res = await api<IMessage[]>({
-         url: `/channel/${channel_id}/messages?limit=10&offset=${page}`,
+         url: `/channel/${channel_id}/messages?limit=10&offset=${page}&direction=${direction}`,
          method: 'GET',
       });
-      if(res && res.length < 10) setStopLoad(true);
-      if(res) {
+      if (res && res.length < 10) setStopLoad(true);
+      if (res) {
          setMessages(prev => [...prev, ...res]);
          setPage(prev => prev + 10);
       }
@@ -72,22 +101,38 @@ export default function MessagesContainer({
    }, [stopLoad]);
 
    useEffect(() => {
-      if(!_accessToken) return;
-      if(stopLoadRef.current) return;
-      if(fetchingRef.current) {
+      if (!_accessToken) return;
+      if (channel_id === null) return;
+      if (stopLoadRef.current) return;
+      if (fetchingRef.current) {
          fetchMessages();
       }
-   }, [_accessToken, stopLoad, fetching])
+   }, [_accessToken, stopLoad, fetching, channel_id]);
+
+   if (channel_id === null) {
+      return <p className={styles.selectChannel}>Please select a channel</p>;
+   }
 
    return (
       <div className={styles.container}>
-         {messages && messages.map((message, index) => (
-            <Message key={message.message_id} text={message.text} style={index % 2 === 0 ? 'left' : 'right'} specialStyle={location.pathname === '/update-channel' ? true : false}/>
+         {(search ? findedMessages : messages).map((message, index) => (
+            <Message
+               key={message.message_id}
+               text={message.text}
+               style={index % 2 === 0 ? 'left' : 'right'}
+               specialStyle={location.pathname === '/update-channel'}
+            />
          ))}
          {fetching && (
             <div className={styles.loader}>
                <CircularProgress />
             </div>
+         )}
+         {!search && messages.length === 0 && (
+            <p className={styles.no_message}>No messages yet</p>
+         )}
+         {search && findedMessages.length === 0 && (
+            <p className={styles.no_message}>No messages found</p>
          )}
       </div>
    );

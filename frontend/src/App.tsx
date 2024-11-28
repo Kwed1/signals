@@ -11,7 +11,6 @@ function App() {
     <ErrorProvider>
       <BrowserRouter>
         <AppContent/>
-        <Navbar/>
       </BrowserRouter>
     </ErrorProvider>
   )
