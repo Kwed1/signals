@@ -1,21 +1,21 @@
-import contactIcon from 'assets/icons/filter-contact.svg';
-import subIcon from 'assets/icons/filter-sub.svg';
-import homeicon from 'assets/icons/home.svg';
-import MessagesContainer from 'entities/MessagesContainer/MessagesContainer';
-import PinnedMessage from 'entities/PinnedMessage/PinnedMessage';
-import Search from 'entities/Search/Search';
-import Switch from 'entities/Switch/Switch';
-import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import useChannelsStore from 'shared/store/useChannelsStore';
-import useTokenStore from 'shared/store/useTokenStore';
-import { Channel, Direction, Message } from 'shared/types';
-import useApi from 'shared/utils/ApiResponseHandler';
-import styles from './index.module.scss';
-import useUserStore from 'shared/store/useUserStore';
-import Profile from 'features/Profile/Profile';
-import Icon from 'shared/ui/Icon/Icon';
-import Navbar from 'shared/ui/Navbar/Navbar';
+import contactIcon from 'assets/icons/filter-contact.svg'
+import subIcon from 'assets/icons/filter-sub.svg'
+import homeicon from 'assets/icons/home.svg'
+import MessagesContainer from 'entities/MessagesContainer/MessagesContainer'
+import PinnedMessage from 'entities/PinnedMessage/PinnedMessage'
+import Search from 'entities/Search/Search'
+import Switch from 'entities/Switch/Switch'
+import Profile from 'features/Profile/Profile'
+import { useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom'
+import useChannelsStore from 'shared/store/useChannelsStore'
+import useTokenStore from 'shared/store/useTokenStore'
+import useUserStore from 'shared/store/useUserStore'
+import { Channel, Direction, Message } from 'shared/types'
+import Icon from 'shared/ui/Icon/Icon'
+import Navbar from 'shared/ui/Navbar/Navbar'
+import useApi from 'shared/utils/ApiResponseHandler'
+import styles from './index.module.scss'
 
 export default function Homepage() {
    const [search, setSearch] = useState<string>('');

@@ -1,11 +1,12 @@
-import ChannelsList from 'pages/ChannelsList';
-import CreateChannel from 'pages/CreateChannel';
-import UpdateChannel from 'pages/UpdateChannel';
-import Users from 'pages/Users';
-import { Route, Routes } from 'react-router-dom';
-import useUserStore from 'shared/store/useUserStore';
-import Homepage from '../../pages';
-import ProtectedRoute from './components/ProtectedRoute';
+import ChannelsList from 'pages/ChannelsList'
+import CreateChannel from 'pages/CreateChannel'
+import SubscriptionPage from 'pages/Subscription'
+import UpdateChannel from 'pages/UpdateChannel'
+import Users from 'pages/Users'
+import { Route, Routes } from 'react-router-dom'
+import useUserStore from 'shared/store/useUserStore'
+import Homepage from '../../pages'
+import ProtectedRoute from './components/ProtectedRoute'
 
 const AppRouter = () => {
    const { userData } = useUserStore();
@@ -48,6 +49,10 @@ const AppRouter = () => {
                      <Users />
                   </ProtectedRoute>
                }
+            />
+            <Route
+               path='/packages'
+                  element={<SubscriptionPage />}
             />
          </Routes>
       </>
