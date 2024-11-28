@@ -2,12 +2,13 @@ import styles from './Message.module.scss';
 
 interface MessageProps {
     text: string;
-    my: boolean;
+    style: 'left' | 'right'
+    specialStyle?: boolean;
 }
 
-export default function Message({text, my}: MessageProps) {
+export default function Message({text, style, specialStyle}: MessageProps) {
     return (
-        <div className={`${styles.message} ${my ? styles.my : styles.notmy}`}>
+        <div className={`${styles.message} ${style === 'left' ? styles.notmy : styles.my} ${specialStyle ? styles.special : ''}`}>
             {text}
         </div>
     )

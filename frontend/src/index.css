@@ -18,6 +18,10 @@
    scrollbar-width: none;
 }
 
+*::-webkit-scrollbar {
+   display: none !important;
+}
+
 body {
    background-color: var(--bg-color);
 }

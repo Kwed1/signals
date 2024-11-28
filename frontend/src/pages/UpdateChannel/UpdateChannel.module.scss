@@ -1,0 +1,43 @@
+.CreateChannel {
+   padding: 19px 19px 0 19px;
+}
+
+.pageHeading {
+   text-align: center;
+   margin-bottom: 40px;
+   font-size: 16px;
+   font-weight: 600;
+}
+
+.copy {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   margin-top: 20px;
+}
+
+.createBtn {
+   width: 75%;
+   font-size: 16px;
+   font-weight: 600;
+   display: block;
+   background-color: var(--accent-color);
+   border: 0;
+   border-radius: 10px;
+   color: #000;
+   padding: 13px;
+   margin: 20px auto 0 auto;
+}
+
+.pinBtn {
+   width: 100%;
+   margin-top: 10px;
+   padding: 13px 0;
+   border-radius: 10px;
+   font-size: 16px;
+   font-weight: 600;
+   color: #000;
+   -webkit-tap-highlight-color: transparent;
+   border: 0;
+   background-color: var(--accent-color);
+}

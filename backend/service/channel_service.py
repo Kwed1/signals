@@ -1,5 +1,6 @@
 from sqlalchemy import select, update
 
+from backend.core.enums import DirectionTypes
 from backend.entities.channel import Channel
 from backend.entities.message import Message
 from backend.exceptions.channel import ChannelAlreadyExists, ChannelNotFound
@@ -43,9 +44,9 @@ class ChannelService(BaseService):
         if channel:
             raise ChannelAlreadyExists()
 
-        new_channel = Channel(**form.model_dump())
+        new_channel = Channel(**form.model_dump(exclude_unset=True))
         self.session.add(new_channel)
-        new_channel = ChannelSchama.model_validate(new_channel, from_attributes=True)
+        new_channel = self._model_validate_chanel(new_channel)
         await self.session.commit()
         return new_channel
 
@@ -82,10 +83,12 @@ class ChannelService(BaseService):
         self, 
         channel_id: int,
         limit: int, 
-        offset: int
+        offset: int,
+        direction: DirectionTypes
     ) -> list[MessageSchema]:
         query = select(Message).where(
-            Message.channel_id == channel_id
+            Message.channel_id == channel_id,
+            Message.direction == direction
         ).limit(limit).offset(offset)
         result = await self.session.execute(query)
         messages = result.scalars().all()

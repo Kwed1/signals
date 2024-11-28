@@ -37,9 +37,9 @@ export default function Users() {
             <table>
                <thead>
                   <tr>
-                     <th>Name</th>
-                     <th>Sub date</th>
-                     <th>Subs</th>
+                     <th style={{width: '55%'}}>Name</th>
+                     <th style={{width: '30%'}}>Sub date</th>
+                     <th style={{width: '15%'}}>Subs</th>
                   </tr>
                </thead>
                <tbody>

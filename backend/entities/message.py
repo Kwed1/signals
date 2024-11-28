@@ -9,6 +9,7 @@ class Message(BaseEntity):
     message_id = Column(BigInteger)
     channel_id = Column(ForeignKey("channels.channel_id"))
     text = Column(String, nullable=True)
+    direction = Column(String, nullable=False)
 
     attachments = relationship(
         "Attachment", 

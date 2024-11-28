@@ -1,10 +1,12 @@
-import Message from 'entities/Message/Message';
 import useModalsStore from 'shared/store/useModalsStore';
 import Icon from 'shared/ui/Icon/Icon';
 import styles from './PinModal.module.scss';
+import useChannelsStore from 'shared/store/useChannelsStore';
+import MessagesContainer from 'entities/MessagesContainer/MessagesContainer';
 
 export default function PinModal() {
    const { setPinModalOpen } = useModalsStore();
+   const {selectedChannel} = useChannelsStore();
 
    return (
       <div className={styles.modal}>
@@ -18,56 +20,7 @@ export default function PinModal() {
                size={34}
             />
          </button>
-         <div className={styles.messages}>
-            <Message
-               text='Message...'
-               my={true}
-            />
-            <Message
-               text='Message...'
-               my={false}
-            />
-            <Message
-               text='Message...'
-               my={true}
-            />
-            <Message
-               text='Message...'
-               my={false}
-            />
-            <Message
-               text='Message...'
-               my={true}
-            />
-            <Message
-               text='Message...'
-               my={false}
-            />
-            <Message
-               text='Message...'
-               my={true}
-            />
-            <Message
-               text='Message...'
-               my={false}
-            />
-            <Message
-               text='Message...'
-               my={true}
-            />
-            <Message
-               text='Message...'
-               my={false}
-            />
-            <Message
-               text='Message...'
-               my={true}
-            />
-            <Message
-               text='Message...'
-               my={false}
-            />
-         </div>
+         <MessagesContainer channel_id={selectedChannel?.channel_id as number}/>
       </div>
    );
 }

@@ -2,8 +2,13 @@
    position: relative; /* Для позиционирования псевдоэлемента */
    padding: 10px;
    font-size: 14px;
+   border-radius: 16px;
+   background: #111; /* Фон элемента */
+}
+
+.message.special {
    border-radius: 10px;
-   background: #171A1F; /* Фон элемента */
+   background-color: #171A1F;
 }
 
 .message.my::before {

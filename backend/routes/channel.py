@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
 
+from backend.core.enums import DirectionTypes
 from backend.schemas.channel import ChannelSchama, UpdateChannelSchema
 from backend.service.channel_service import ChannelService
 
@@ -41,6 +42,7 @@ async def get_channel_messages(
     channel_id: int, 
     service: ChannelService = Depends(), 
     limit: int = 10, 
-    offset: int = 0
+    offset: int = 0,
+    direction: DirectionTypes = DirectionTypes.LONG
 ):
-    return await service.get_channel_messages(channel_id, limit, offset)
+    return await service.get_channel_messages(channel_id, limit, offset, direction)

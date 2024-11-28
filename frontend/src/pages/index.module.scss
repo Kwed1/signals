@@ -1,60 +1,52 @@
 .homepage {
-    padding: 19px 19px 0 19px;
+   padding: 19px 19px 0 19px;
 }
 
 .top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 20px;
 }
 
 .icon {
-    width: fit-content;
-    border-radius: 8px;
-    padding: 8px 9px;
-    background-color: var(--accent-color);
-    margin-left: auto;
+   width: fit-content;
+   border-radius: 8px;
+   padding: 8px 9px;
+   background-color: var(--accent-color);
+   margin-left: auto;
 }
 
 .pinned {
-    margin-bottom: 20px;
+   margin-bottom: 20px;
 }
 
 .filters {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    gap: 10px;
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: 20px;
+   gap: 10px;
 
-    .filter {
-        border-radius: 8px;
-        min-width: 94px;
-            min-height: 57px;
-        padding: 11px;
-        background-color: #171A1F;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2px;
-        font-size: 12px;
-        font-weight: 500;
-    }
+   .filter {
+      border-radius: 8px;
+      min-width: 94px;
+      min-height: 57px;
+      padding: 11px;
+      background-color: #171a1f;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: 12px;
+      font-weight: 500;
+   }
 }
 
 .switchFilter {
-    position: absolute;
-    right: 0;
-    bottom: 50%;
-    translate: 0 66%;
+   position: absolute;
+   right: 0;
+   bottom: 50%;
+   translate: 0 66%;
 }
-
-.messages {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-}
-
