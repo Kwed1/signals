@@ -1,17 +1,17 @@
-import PinnedMessage from 'entities/PinnedMessage/PinnedMessage';
-import styles from './index.module.scss';
-import homeicon from 'assets/icons/home.svg';
-import Search from 'entities/Search/Search';
-import subIcon from 'assets/icons/filter-sub.svg';
-import contactIcon from 'assets/icons/filter-contact.svg';
-import Switch from 'entities/Switch/Switch';
-import Message from 'entities/Message/Message';
-import { NavLink } from 'react-router-dom';
-import { useEffect } from 'react';
-import useChannelsStore from 'shared/store/useChannelsStore';
-import useTokenStore from 'shared/store/useTokenStore';
-import { Channel } from 'shared/types';
-import useApi from 'shared/utils/ApiResponseHandler';
+import contactIcon from 'assets/icons/filter-contact.svg'
+import subIcon from 'assets/icons/filter-sub.svg'
+import homeicon from 'assets/icons/home.svg'
+import Message from 'entities/Message/Message'
+import PinnedMessage from 'entities/PinnedMessage/PinnedMessage'
+import Search from 'entities/Search/Search'
+import Switch from 'entities/Switch/Switch'
+import { useEffect } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import useChannelsStore from 'shared/store/useChannelsStore'
+import useTokenStore from 'shared/store/useTokenStore'
+import { Channel } from 'shared/types'
+import useApi from 'shared/utils/ApiResponseHandler'
+import styles from './index.module.scss'
 
 export default function Homepage() {
 
@@ -33,6 +33,7 @@ export default function Homepage() {
          fetchChannels();
       }
    }, [_accessToken]);
+	 const navigate = useNavigate()
 
 	return (
 		<div className={styles.homepage}>
@@ -48,10 +49,11 @@ export default function Homepage() {
 			</div>
 			<Search/>
 			<div className={styles.filters}>
-				<div className={styles.filter}>
+				<button className={styles.filter}
+				onClick={() => navigate('/packages')}>
 					<img width={22} height={19} src={subIcon} alt="" />
 					<p>Subscription</p>
-				</div>
+				</button>
 				<div className={styles.filter}>
 					<img width={22} height={19} src={contactIcon} alt="" />
 					<p>Contacts</p>

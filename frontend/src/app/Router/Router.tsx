@@ -1,8 +1,9 @@
-import CreateChannel from 'pages/CreateChannel';
-import { Route, Routes } from 'react-router-dom';
-import Homepage from '../../pages';
-import ChannelsList from 'pages/ChannelsList';
-import Users from 'pages/Users';
+import ChannelsList from 'pages/ChannelsList'
+import CreateChannel from 'pages/CreateChannel'
+import SubscriptionPage from 'pages/Subscription'
+import Users from 'pages/Users'
+import { Route, Routes } from 'react-router-dom'
+import Homepage from '../../pages'
 
 const AppRouter = () => {
    return (
@@ -23,6 +24,10 @@ const AppRouter = () => {
             <Route
                path='/users'
                   element={<Users />}
+            />
+            <Route
+               path='/packages'
+                  element={<SubscriptionPage />}
             />
          </Routes>
       </>
