@@ -94,12 +94,13 @@ class ChannelService(BaseService):
         channel_id: int,
         limit: int, 
         offset: int,
-        direction: DirectionTypes
+        direction: DirectionTypes | None = None,
     ) -> list[MessageSchema]:
-        query = select(Message).where(
-            Message.channel_id == channel_id,
-            Message.direction == direction
-        ).limit(limit).offset(offset)
+        query = select(Message).where(Message.channel_id == channel_id)
+
+        if direction:
+            query = query.where(Message.direction == direction)
+        query = query.limit(limit).offset(offset)
         result = await self.session.execute(query)
         messages = result.scalars().all()
         return [MessageSchema.model_validate(message, from_attributes=True) for message in messages]

@@ -44,7 +44,7 @@ async def get_channel_messages(
     service: ChannelService = Depends(), 
     limit: int = 10, 
     offset: int = 0,
-    direction: DirectionTypes = DirectionTypes.LONG
+    direction: DirectionTypes | None = None
 ):
     return await service.get_channel_messages(channel_id, limit, offset, direction)
 
