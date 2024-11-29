@@ -7,7 +7,7 @@ import useChannelsStore from 'shared/store/useChannelsStore';
 export default function DeleteModal() {
 
     const {selectedChannel, deleteChannel, setSelected} = useChannelsStore();
-    const {setDeleteModalOpen, setChoiceModalOpen} = useModalsStore();
+    const {setDeleteModalOpen} = useModalsStore();
     const {getToken} = useTokenStore();
     let _accessToken = getToken();
     const api = useApi();

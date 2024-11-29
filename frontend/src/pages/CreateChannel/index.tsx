@@ -1,6 +1,6 @@
 import ChannelData from 'features/ChannelData/ChannelData';
 import CopyElement from 'features/CopyElement/CopyElement';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useChannelsStore from 'shared/store/useChannelsStore';
 import useTokenStore from 'shared/store/useTokenStore';
 import { Channel } from 'shared/types';
@@ -24,6 +24,8 @@ export default function CreateChannel() {
       channel_id: '',
       link: '',
       admin_id: '',
+      pinned_message: null,
+      last_message: null
    });
 
    const { getToken } = useTokenStore();
@@ -74,7 +76,9 @@ export default function CreateChannel() {
             admin_id: '',
             channel_id: '',
             icon_type: 'home',
-            link: ''
+            link: '',
+            pinned_message: null,
+            last_message: null
          })
          navigate('/channels')
       }

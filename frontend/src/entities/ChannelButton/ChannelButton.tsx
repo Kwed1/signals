@@ -1,7 +1,6 @@
 import Icon from 'shared/ui/Icon/Icon';
 import styles from './ChannelButton.module.scss';
 import { Dispatch, SetStateAction } from 'react';
-import { Message } from 'shared/types';
 
 interface ChannelButtonProps {
     name: string;
