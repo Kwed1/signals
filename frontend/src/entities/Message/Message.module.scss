@@ -6,6 +6,10 @@
    background: #111; /* Фон элемента */
 }
 
+.message.pinned {
+   color: var(--accent-color);
+}
+
 .message.special {
    border-radius: 10px;
    background-color: #171A1F;

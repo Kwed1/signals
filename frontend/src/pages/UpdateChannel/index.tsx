@@ -29,6 +29,8 @@ export default function UpdateChannel() {
       channel_id: '',
       link: '',
       admin_id: '',
+      last_message: null,
+      pinned_message: null
    });
 
    useEffect(() => {
@@ -39,6 +41,8 @@ export default function UpdateChannel() {
             channel_id: selectedChannel.channel_id,
             link: selectedChannel.link,
             admin_id: selectedChannel.admin_id,
+            last_message: selectedChannel.last_message,
+            pinned_message: selectedChannel.pinned_message
          });
       }
    }, [editing, selectedChannel]);
@@ -92,7 +96,9 @@ export default function UpdateChannel() {
             admin_id: '',
             channel_id: '',
             icon_type: 'home',
-            link: ''
+            link: '',
+            last_message: null,
+            pinned_message: null
          });
          setSelected(null);
          navigate('/channels')

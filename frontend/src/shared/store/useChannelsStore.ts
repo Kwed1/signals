@@ -12,6 +12,7 @@ interface ChannelsStore {
     updateChannels: (value: Channel) => void;
     deleteChannel: (value: number) => void;
     updateChannelById: (id: number, newData: Partial<Channel>) => void;
+    updateSelected: (data: Partial<Channel>) => void; 
 }
 
 const useChannelsStore = create<ChannelsStore>((set,get) => ({
@@ -34,7 +35,9 @@ const useChannelsStore = create<ChannelsStore>((set,get) => ({
                     channel_id: '',
                     icon_type: value,
                     link: '',
-                    name: ''
+                    name: '',
+                    last_message: null,
+                    pinned_message: null
                 }
             })
         }
@@ -58,6 +61,12 @@ const useChannelsStore = create<ChannelsStore>((set,get) => ({
           channel.channel_id === id ? { ...channel, ...newData } : channel
         );
         set({ channels: updatedChannels });
+    },
+    updateSelected: (data) => {
+        const selectedChannel = get().selectedChannel;
+        if(selectedChannel) {
+            set({selectedChannel: {...selectedChannel, ...data}})
+        }
     }
 }))
 

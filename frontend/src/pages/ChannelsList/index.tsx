@@ -71,6 +71,8 @@ export default function ChannelsList() {
                           icon_type={channel.icon_type}
                           admin_id={channel.admin_id}
                           channel_id={channel.channel_id}
+                          last_message={channel.last_message}
+                          pinned_message={channel.pinned_message}
                           link={channel.link}
                        />
                     ))
@@ -81,6 +83,8 @@ export default function ChannelsList() {
                           icon_type={channel.icon_type}
                           admin_id={channel.admin_id}
                           channel_id={channel.channel_id}
+                          last_message={channel.last_message}
+                          pinned_message={channel.pinned_message}
                           link={channel.link}
                        />
                     ))}

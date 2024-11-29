@@ -7,7 +7,7 @@ import Search from 'entities/Search/Search'
 import Switch from 'entities/Switch/Switch'
 import Profile from 'features/Profile/Profile'
 import { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import useChannelsStore from 'shared/store/useChannelsStore'
 import useTokenStore from 'shared/store/useTokenStore'
 import useUserStore from 'shared/store/useUserStore'
@@ -26,6 +26,7 @@ export default function Homepage() {
    const { getToken } = useTokenStore();
    const {userData} = useUserStore();
    let _accessToken = getToken();
+   const navigate = useNavigate();
    const api = useApi();
 
    const fetchChannels = async () => {
@@ -64,14 +65,14 @@ export default function Homepage() {
             )}
          </div>
          <div className={styles.pinned}>
-            <PinnedMessage />
+            <PinnedMessage currentTab={currentTab}/>
          </div>
          <Search
             value={search}
             onChange={e => setSearch(e.target.value)}
          />
          <div className={styles.filters}>
-            <div className={styles.filter}>
+            <div className={styles.filter} onClick={() => _accessToken && navigate('/packages')}>
                <img
                   width={22}
                   height={19}

@@ -4,6 +4,8 @@ export interface Channel {
    channel_id: string | number;
    link: string;
    admin_id: string | number;
+   last_message: Message | null;
+   pinned_message: Message | null;
 }
 
 export interface User {

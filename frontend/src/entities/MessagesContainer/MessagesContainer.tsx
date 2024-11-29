@@ -12,7 +12,8 @@ interface MessagesContainerProps {
    search?: string;
    messages: IMessage[];
    setMessages: Dispatch<SetStateAction<IMessage[]>>;
-   direction: Direction;
+   direction?: Direction;
+   allMessagesMode?: boolean;
 }
 
 export default function MessagesContainer({
@@ -20,7 +21,8 @@ export default function MessagesContainer({
    search,
    messages,
    setMessages,
-   direction
+   direction,
+   allMessagesMode = false
 }: MessagesContainerProps) {
    const [fetching, setFetching] = useState<boolean>(true);
    const [firstLoad, setFirstLoad] = useState<boolean>(true);
@@ -78,10 +80,15 @@ export default function MessagesContainer({
 
    const fetchMessages = async () => {
       if (firstLoad) setFirstLoad(false);
+
+      const baseUrl = `/channel/${channel_id}/messages?limit=10&offset=${page}`;
+      const url = allMessagesMode ? baseUrl : `${baseUrl}&direction=${direction}`;
+
       const res = await api<IMessage[]>({
-         url: `/channel/${channel_id}/messages?limit=10&offset=${page}&direction=${direction}`,
+         url: url,
          method: 'GET',
       });
+
       if (res && res.length < 10) setStopLoad(true);
       if (res) {
          setMessages(prev => [...prev, ...res]);
@@ -121,6 +128,8 @@ export default function MessagesContainer({
                text={message.text}
                style={index % 2 === 0 ? 'left' : 'right'}
                specialStyle={location.pathname === '/update-channel'}
+               canPin={allMessagesMode}
+               id={message.message_id}
             />
          ))}
          {fetching && (

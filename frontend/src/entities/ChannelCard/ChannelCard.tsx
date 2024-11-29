@@ -3,11 +3,7 @@ import styles from './ChannelCard.module.scss';
 import useChannelsStore from 'shared/store/useChannelsStore';
 import useModalsStore from 'shared/store/useModalsStore';
     
-interface ChannelCardProps extends Channel{
-    last_message?: string;
-}
-
-export default function ChannelCard({name, admin_id, channel_id, icon_type, link, last_message = 'Test text'}: ChannelCardProps) {
+export default function ChannelCard({name, admin_id, channel_id, icon_type, link, last_message, pinned_message}: Channel) {
 
     const {selectedChannel, setSelected} = useChannelsStore();
     const {setChoiceModalOpen} = useModalsStore();
@@ -17,7 +13,7 @@ export default function ChannelCard({name, admin_id, channel_id, icon_type, link
             setSelected(null)
             setChoiceModalOpen(false);
         } else {
-            setSelected({name, admin_id, channel_id, icon_type, link})
+            setSelected({name, admin_id, channel_id, icon_type, link, last_message, pinned_message})
             setChoiceModalOpen(true);
         }
     }
@@ -30,7 +26,7 @@ export default function ChannelCard({name, admin_id, channel_id, icon_type, link
             <div className={styles.imageWrapper}><div className={styles.image}></div></div>
             <div className={styles.info}>
                 <p className={styles.channelName}>{name}</p>
-                <p className={styles.lastMess}>{last_message}</p>
+                <p className={styles.lastMess}>{last_message?.text}</p>
             </div>
         </div>
     )
