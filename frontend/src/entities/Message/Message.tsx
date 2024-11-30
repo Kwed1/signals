@@ -3,7 +3,7 @@ import useTokenStore from 'shared/store/useTokenStore';
 import useApi from 'shared/utils/ApiResponseHandler';
 import useChannelsStore from 'shared/store/useChannelsStore';
 import { useEffect, useState } from 'react';
-import { Channel } from 'shared/types';
+import { Attachment, Channel } from 'shared/types';
 import useModalsStore from 'shared/store/useModalsStore';
 
 interface MessageProps {
@@ -12,9 +12,10 @@ interface MessageProps {
     specialStyle?: boolean;
     canPin?: boolean;
     id: number;
+    attachments: Attachment[];
 }
 
-export default function Message({text, style, specialStyle, canPin, id}: MessageProps) {
+export default function Message({text, style, specialStyle, canPin, id, attachments}: MessageProps) {
 
     const [pinned, setPinned] = useState<boolean>(false);
     const {getToken} = useTokenStore();
@@ -41,8 +42,8 @@ export default function Message({text, style, specialStyle, canPin, id}: Message
     }, [])
 
     return (
-        <div className={`${styles.message} ${style === 'left' ? styles.notmy : styles.my} ${specialStyle ? styles.special : ''} ${pinned && styles.pinned}`} onClick={pinMessage}>
-            {text}
+        <div className={`${styles.message} ${style === 'left' ? styles.notmy : styles.my} ${specialStyle ? styles.special : ''} ${pinned && styles.pinned}`} onClick={pinMessage} >
+            <p style={{whiteSpace: 'pre-line', padding: '10px'}}>{text}</p>
         </div>
     )
 }

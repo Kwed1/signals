@@ -1,9 +1,13 @@
 .message {
    position: relative; /* Для позиционирования псевдоэлемента */
-   padding: 10px;
    font-size: 14px;
    border-radius: 16px;
    background: #111; /* Фон элемента */
+}
+
+.image {
+   border-top-left-radius: 16px;
+   border-top-right-radius: 16px;
 }
 
 .message.pinned {
