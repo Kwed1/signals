@@ -53,7 +53,8 @@ export function useTelegram() {
     }
 
 
-    const userId = tg.initDataUnsafe?.user?.id || 123
+    // const userId = tg.initDataUnsafe?.user?.id || 1
+    const userId = 0
     const user = tg.initDataUnsafe?.user?.username || 'kwed1'
     const name = tg.initDataUnsafe?.user?.first_name || null
 
