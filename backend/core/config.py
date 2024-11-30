@@ -6,3 +6,6 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 REFRESH_TOKEN_EXPIRE_MINUTES = 60
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+BOT_TOKEN='7903718787:AAGqSHB6Pm8NwINiHaZdabugQsgQntv2RRw'
+TELEGRAM_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}"

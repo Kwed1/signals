@@ -28,4 +28,5 @@ class Attachment(BaseEntity):
     message_id = Column(ForeignKey("messages.id"))
     attachment_type = Column(String, nullable=False)
     attachment_id = Column(String, nullable=False)
+    attachment_link = Column(String, nullable=False)
     message = relationship("Message", back_populates='attachments', uselist=False)

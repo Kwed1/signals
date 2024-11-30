@@ -60,7 +60,8 @@ async def handle_media_message(message: Message):
             )
         )
         
-    direction = re.findall(r"Direction:\s*(\w+)", message.text)
+    direction = re.findall(r"Direction:\s*(\w+)", message.text if not message.caption else
+    message.caption)
     if not direction:
         logger.error(f"Direction not found in message: {message.message_id}")
     else:

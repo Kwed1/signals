@@ -1,5 +1,10 @@
 from pprint import pprint
+
+import httpx
+from fastapi import HTTPException
 from sqlalchemy import select
+
+from backend.core.config import TELEGRAM_API_URL, BOT_TOKEN
 from backend.entities.channel import Channel
 from backend.entities.message import Attachment, Message
 from backend.exceptions.channel import ChannelNotFound
@@ -29,10 +34,38 @@ class MessageService(BaseService):
             raise ChannelNotFound()
         
         form = form.model_dump()
-        attachments = [Attachment(**attachment) for attachment in form.pop("attachments")]
+        attachments = [Attachment(
+            attachment_link=(await self.get_attachment_link(
+                attachment_id=attachment.attachment_id)),
+            attachment_id=attachment.attachment_id,
+            attachment_type=attachment.attachment_type
+        ) for attachment in form.pop("attachments")]
 
         new_message = Message(**form, channel=channel, attachments=attachments)
         self.session.add(new_message)
         new_message = MessageSchema.model_validate(new_message, from_attributes=True)
         await self.session.commit()
         return new_message
+
+    async def get_attachment_link(self, attachment_id: str):
+        get_file_url = f"{TELEGRAM_API_URL}/getFile"
+        async with httpx.AsyncClient() as client:
+            response = await client.post(get_file_url, data={"file_id": attachment_id})
+
+        if response.status_code != 200:
+            raise HTTPException(status_code=500, detail="Ошибка при запросе к Telegram API")
+
+        result = response.json()
+        if not result.get("ok"):
+            raise HTTPException(status_code=400, detail="Некорректный file_id")
+
+        file_path = result["result"]["file_path"]
+
+        file_url = f"https://api.telegram.org/file/bot{BOT_TOKEN}/{file_path}"
+        async with httpx.AsyncClient() as client:
+            file_response = await client.get(file_url)
+
+        if file_response.status_code != 200:
+            raise HTTPException(status_code=500, detail="Error while downloading file")
+
+        return file_url
