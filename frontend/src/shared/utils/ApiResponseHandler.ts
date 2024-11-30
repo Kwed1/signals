@@ -1,13 +1,13 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import useTokenStore from 'shared/store/useTokenStore'
-import { useError } from '../../app/ErrorContext'
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import useTokenStore from 'shared/store/useTokenStore';
+import { useError } from '../../app/ErrorContext';
 
 const useApi = () => {
    const { setError } = useError();
-   const {getToken} = useTokenStore()
-   const _accessToken = getToken()
+   const { getToken } = useTokenStore();
+   const _accessToken = getToken();
    const api = axios.create({
-      baseURL: 'http://95.169.201.222:8003/',
+      baseURL: 'https://signalapi.devmainops.store/',
    });
 
    api.interceptors.request.use(
