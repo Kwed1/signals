@@ -8,7 +8,7 @@ class ChannelSchama(BaseModel):
     icon_type: str
     channel_id: int
     link: str
-    admin_id: int
+    admin_id: str
     last_message: MessageSchema | None = None
     pinned_message: MessageSchema | None = None
 
@@ -18,7 +18,7 @@ class CreateChannelSchema(BaseModel):
     icon_type: str
     channel_id: int
     link: str
-    admin_id: int
+    admin_id: str
     
 
 class UpdateChannelSchema(BaseModel):
@@ -26,6 +26,6 @@ class UpdateChannelSchema(BaseModel):
     icon_type: str | None = None
     channel_id: int | None = None
     link: str | None = None
-    admin_id: int | None = None
+    admin_id: str | None = None
     pinned_message_id: int | None = None
     
