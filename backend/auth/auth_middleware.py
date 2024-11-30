@@ -16,6 +16,7 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
             "/openapi.json",
             "/friends/add",
             "/files",
+            "/message"
         ]
         if request.url.path != "/" and not any(
             request.url.path.startswith(prefix) for prefix in excluded_prefixes
