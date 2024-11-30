@@ -1,2 +1,3 @@
-BOT_TOKEN='7903718787:AAEkhbCu-FQ_vxn3RCod7LapzsnIM9kzTF0'
-API_URL='http://localhost:8000'
+BOT_TOKEN='7903718787:AAGqSHB6Pm8NwINiHaZdabugQsgQntv2RRw'
+API_URL='http://95.169.201.222:8003'
+WEB_APP='https://signalsui.netlify.app'

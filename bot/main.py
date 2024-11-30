@@ -17,8 +17,8 @@ async def main():
     )
     dp = Dispatcher()
 
+    dp.include_routers(handlers.start_router)
     dp.include_routers(handlers.messages_router)
-
     await dp.start_polling(bot)
 
 
