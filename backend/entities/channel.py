@@ -11,7 +11,7 @@ class Channel(BaseEntity):
     channel_id = Column(BigInteger, nullable=False, unique=True)
     link = Column(String,  nullable=False)
     pinned_message_id = Column(BigInteger, nullable=True)
-    admin_id = Column(BigInteger, nullable=False)
+    admin_id = Column(String, nullable=False)
     icon_type = Column(String, nullable=False)
 
     @declared_attr
