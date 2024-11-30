@@ -22,12 +22,14 @@ export default function Homepage() {
    const [messages, setMessages] = useState<Message[]>([]);
    const [currentTab, setCurrentTab] = useState<number | null>(null);
    const [direction, setDirection] = useState<Direction>(Direction.LONG);
-   const { setChannels } = useChannelsStore();
+   const { setChannels, channels } = useChannelsStore();
    const { getToken } = useTokenStore();
    const {userData} = useUserStore();
    let _accessToken = getToken();
    const navigate = useNavigate();
    const api = useApi();
+
+   const currentChannel = channels.find(channel => channel.channel_id === currentTab);
 
    const fetchChannels = async () => {
       const res = await api<Channel[]>({ url: '/channel/', method: 'GET' });
@@ -65,7 +67,9 @@ export default function Homepage() {
             )}
          </div>
          <div className={styles.pinned}>
-            <PinnedMessage currentTab={currentTab}/>
+            {currentChannel && currentChannel.pinned_message && (
+               <PinnedMessage currentTab={currentTab}/>
+            )}
          </div>
          <Search
             value={search}

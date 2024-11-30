@@ -12,7 +12,7 @@ export const useSignIn = () => {
 
    const signIn = async () => {
       const res = await axios<authTokenInt>(
-         'http://95.169.201.222:8003/auth/sign-in/',
+         'https://signalapi.devmainops.store/auth/sign-in/',
          {
             method: 'POST',
             data: {
