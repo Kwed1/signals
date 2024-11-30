@@ -16,6 +16,7 @@ import Icon from 'shared/ui/Icon/Icon'
 import Navbar from 'shared/ui/Navbar/Navbar'
 import useApi from 'shared/utils/ApiResponseHandler'
 import styles from './index.module.scss'
+import { openTelegramLink } from "@telegram-apps/sdk";
 
 export default function Homepage() {
    const [search, setSearch] = useState<string>('');
@@ -85,7 +86,9 @@ export default function Homepage() {
                />
                <p>Subscription</p>
             </div>
-            <div className={styles.filter}>
+            <div className={styles.filter} onClick={() => {
+                openTelegramLink(currentChannel?.admin_id as string);
+            }}>
                <img
                   width={22}
                   height={19}
