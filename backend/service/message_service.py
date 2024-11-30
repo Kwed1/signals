@@ -36,9 +36,9 @@ class MessageService(BaseService):
         form = form.model_dump()
         attachments = [Attachment(
             attachment_link=(await self.get_attachment_link(
-                attachment_id=attachment.attachment_id)),
-            attachment_id=attachment.attachment_id,
-            attachment_type=attachment.attachment_type
+                attachment_id=attachment['attachment_id'])),
+            attachment_id=attachment['attachment_id'],
+            attachment_type=attachment['attachment_type']
         ) for attachment in form.pop("attachments")]
 
         new_message = Message(**form, channel=channel, attachments=attachments)
