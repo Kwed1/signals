@@ -27,7 +27,7 @@ export default function PinnedMessage({currentTab}: PinnedMessageProps) {
                 <div className={styles.photo}></div>
                 <div className={styles.info}>
                     <h4>Pinned message</h4>
-                    <p>{text}</p>
+                    <p style={{whiteSpace: 'pre-line'}}>{text}</p>
                 </div>
             </div>
             <div className={styles.closeIcon}>

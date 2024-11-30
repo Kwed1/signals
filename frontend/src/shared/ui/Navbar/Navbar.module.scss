@@ -8,12 +8,13 @@
    margin-top: 12px;
    bottom: 16px;
    overflow-x: scroll;
+   padding-right: 19px;
 }
 
 .pad {
-    height: 80px;
+   height: 80px;
 
-    &.color {
-        background-color: #171A1F;
-    }
+   &.color {
+      background-color: #171a1f;
+   }
 }

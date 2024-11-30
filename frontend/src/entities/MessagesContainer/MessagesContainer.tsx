@@ -130,6 +130,7 @@ export default function MessagesContainer({
                specialStyle={location.pathname === '/update-channel'}
                canPin={allMessagesMode}
                id={message.message_id}
+               attachments={message.attachments}
             />
          ))}
          {fetching && (

@@ -24,6 +24,7 @@ export interface Message {
 
 export interface Attachment {
    attachment_type: string;
+   attachment_link: string;
    attachment_id: string;
 }
 
