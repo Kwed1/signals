@@ -3,7 +3,7 @@ export interface Channel {
    icon_type: string;
    channel_id: string | number;
    link: string;
-   admin_id: string | number;
+   admin_id: string;
    last_message: Message | null;
    pinned_message: Message | null;
 }

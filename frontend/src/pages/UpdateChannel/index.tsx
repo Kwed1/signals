@@ -23,14 +23,12 @@ export default function UpdateChannel() {
    } = useChannelsStore();
    const navigate = useNavigate();
 
-   const [formData, setFormData] = useState<Channel>({
+   const [formData, setFormData] = useState<Partial<Channel>>({
       name: '',
-      icon_type: 'home',
+      icon_type: '',
       channel_id: '',
       link: '',
       admin_id: '',
-      last_message: null,
-      pinned_message: null
    });
 
    useEffect(() => {
@@ -41,11 +39,9 @@ export default function UpdateChannel() {
             channel_id: selectedChannel.channel_id,
             link: selectedChannel.link,
             admin_id: selectedChannel.admin_id,
-            last_message: selectedChannel.last_message,
-            pinned_message: selectedChannel.pinned_message
          });
       }
-   }, [editing, selectedChannel]);
+   }, []);
 
    const { getToken } = useTokenStore();
    let _accessToken = getToken();
@@ -65,7 +61,7 @@ export default function UpdateChannel() {
          }
 
          if (
-            (key === 'channel_id' || key === 'admin_id') &&
+            (key === 'channel_id') &&
             Number.isNaN(Number(finalValue))
          ) {
             return;
@@ -74,7 +70,7 @@ export default function UpdateChannel() {
          setFormData(prev => ({
             ...prev,
             [key]:
-               key === 'channel_id' || key === 'admin_id'
+               key === 'channel_id'
                   ? Number(finalValue)
                   : finalValue,
          }));
@@ -95,10 +91,8 @@ export default function UpdateChannel() {
             name: '',
             admin_id: '',
             channel_id: '',
-            icon_type: 'home',
+            icon_type: '',
             link: '',
-            last_message: null,
-            pinned_message: null
          });
          setSelected(null);
          navigate('/channels')
@@ -110,8 +104,8 @@ export default function UpdateChannel() {
          <div className={styles.CreateChannel}>
             <p className={styles.pageHeading}>Update channel</p>
             <ChannelData
-               name={formData.name}
-               icon={formData.icon_type}
+               name={formData.name as string}
+               icon={formData.icon_type as string}
                onNameChange={handleChange('name')}
             />
             <button
@@ -124,19 +118,19 @@ export default function UpdateChannel() {
                <CopyElement
                   name='Channel Link'
                   text='t.me/DnTyXst8UMASmJvt'
-                  value={formData.link}
+                  value={formData.link as string}
                   onValueChange={handleChange('link')}
                />
                <CopyElement
                   name='Channel ID'
                   text='1001234567890'
-                  value={formData.channel_id}
+                  value={formData.channel_id as string}
                   onValueChange={handleChange('channel_id')}
                />
                <CopyElement
                   name='Admin link'
                   text='t.me/DnTyXst8UMASmJvt'
-                  value={formData.admin_id}
+                  value={formData.admin_id as string}
                   onValueChange={handleChange('admin_id')}
                />
             </div>

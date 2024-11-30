@@ -18,14 +18,12 @@ export default function CreateChannel() {
    const navigate = useNavigate();
    const {iconModalOpen} = useModalsStore();
 
-   const [formData, setFormData] = useState<Channel>({
+   const [formData, setFormData] = useState<Partial<Channel>>({
       name: '',
       icon_type: '',
       channel_id: '',
       link: '',
       admin_id: '',
-      pinned_message: null,
-      last_message: null
    });
 
    const { getToken } = useTokenStore();
@@ -46,7 +44,7 @@ export default function CreateChannel() {
          }
 
          if (
-            (key === 'channel_id' || key === 'admin_id') &&
+            (key === 'channel_id') &&
             Number.isNaN(Number(finalValue))
          ) {
             return;
@@ -55,7 +53,7 @@ export default function CreateChannel() {
          setFormData(prev => ({
             ...prev,
             [key]:
-               key === 'channel_id' || key === 'admin_id'
+               key === 'channel_id'
                   ? Number(finalValue)
                   : finalValue,
          }));
@@ -75,10 +73,8 @@ export default function CreateChannel() {
             name: '',
             admin_id: '',
             channel_id: '',
-            icon_type: 'home',
+            icon_type: '',
             link: '',
-            pinned_message: null,
-            last_message: null
          })
          navigate('/channels')
       }
@@ -89,27 +85,27 @@ export default function CreateChannel() {
          <div className={styles.CreateChannel}>
             <p className={styles.pageHeading}>Create a channel</p>
             <ChannelData
-               icon={formData.icon_type}
-               name={formData.name}
+               icon={formData.icon_type as string}
+               name={formData.name as string}
                onNameChange={handleChange('name')}
             />
             <div className={styles.copy}>
                <CopyElement
                   name='Channel Link'
                   text='t.me/DnTyXst8UMASmJvt'
-                  value={formData.link}
+                  value={formData.link as string}
                   onValueChange={handleChange('link')}
                />
                <CopyElement
                   name='Channel ID'
                   text='1001234567890'
-                  value={formData.channel_id}
+                  value={formData.channel_id as string}
                   onValueChange={handleChange('channel_id')}
                />
                <CopyElement
                   name='Admin link'
                   text='t.me/DnTyXst8UMASmJvt'
-                  value={formData.admin_id}
+                  value={formData.admin_id as string}
                   onValueChange={handleChange('admin_id')}
                />
             </div>
