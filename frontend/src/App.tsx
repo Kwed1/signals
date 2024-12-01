@@ -4,8 +4,10 @@ import AppRouter from 'app/Router/Router'
 import { useEffect, useRef } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import ErrorSnackbar from 'shared/ui/Snackbar/Snackbar'
+import {init} from '@telegram-apps/sdk';
 
 function App() {
+  init();
   return (
     <ErrorProvider>
       <BrowserRouter>

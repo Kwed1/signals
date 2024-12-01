@@ -1,10 +1,11 @@
-import useTokenStore from 'shared/store/useTokenStore';
-    import styles from './Message.module.scss';
-import useApi from 'shared/utils/ApiResponseHandler';
-import useChannelsStore from 'shared/store/useChannelsStore';
-import { useEffect, useState } from 'react';
-import { Attachment, Channel } from 'shared/types';
-import useModalsStore from 'shared/store/useModalsStore';
+import { useEffect, useState } from 'react'
+import useChannelsStore from 'shared/store/useChannelsStore'
+import useModalsStore from 'shared/store/useModalsStore'
+import useTokenStore from 'shared/store/useTokenStore'
+import { Attachment, Channel } from 'shared/types'
+import MediaGallery from 'shared/ui/MediaGallery'
+import useApi from 'shared/utils/ApiResponseHandler'
+import styles from './Message.module.scss'
 
 interface MessageProps {
     text: string;
@@ -44,6 +45,7 @@ export default function Message({text, style, specialStyle, canPin, id, attachme
     return (
         <div className={`${styles.message} ${style === 'left' ? styles.notmy : styles.my} ${specialStyle ? styles.special : ''} ${pinned && styles.pinned}`} onClick={pinMessage} >
             <p style={{whiteSpace: 'pre-line', padding: '10px'}}>{text}</p>
+            <MediaGallery mediaItems={attachments}/>
         </div>
     )
 }
