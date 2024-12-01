@@ -15,7 +15,7 @@ class AttachmentTypes(str, Enum):
 class AttachmentSchema(BaseModel):
     attachment_type: AttachmentTypes
     attachment_id: str
-    attachment_link: str
+    attachment_link: str | None = None
 
 
 class MessageSchema(BaseModel):
