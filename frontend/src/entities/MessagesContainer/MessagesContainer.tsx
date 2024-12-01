@@ -1,11 +1,11 @@
-import CircularProgress from '@mui/material/CircularProgress';
-import Message from 'entities/Message/Message';
-import { Dispatch, SetStateAction, useEffect, useMemo, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-   import useTokenStore from 'shared/store/useTokenStore';
-import { Direction, Message as IMessage } from 'shared/types';
-import useApi from 'shared/utils/ApiResponseHandler';
-import styles from './MessagesContainer.module.scss';
+import CircularProgress from '@mui/material/CircularProgress'
+import Message from 'entities/Message/Message'
+import { Dispatch, SetStateAction, useEffect, useMemo, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import useTokenStore from 'shared/store/useTokenStore'
+import { Direction, Message as IMessage } from 'shared/types'
+import useApi from 'shared/utils/ApiResponseHandler'
+import styles from './MessagesContainer.module.scss'
 
 interface MessagesContainerProps {
    channel_id: number | null;
@@ -122,7 +122,8 @@ export default function MessagesContainer({
 
    return (
       <div className={styles.container}>
-         {(search ? findedMessages : messages).map((message, index) => (
+        {(search ? findedMessages : messages).map((message, index) => (
+            (message?.text || message?.attachments?.length > 0) &&
             <Message
                key={message.message_id}
                text={message.text}
