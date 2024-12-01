@@ -16,7 +16,7 @@ interface MessageProps {
     attachments: Attachment[];
 }
 
-export default function Message({text, style, specialStyle, canPin, id}: MessageProps) {
+export default function Message({text, style, specialStyle, canPin, id, attachments}: MessageProps) {
 
     const [pinned, setPinned] = useState<boolean>(false);
     const {getToken} = useTokenStore();
