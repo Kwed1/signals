@@ -77,7 +77,7 @@ export default function Homepage() {
             onChange={e => setSearch(e.target.value)}
          />
          <div className={styles.filters}>
-            <div className={styles.filter} onClick={() => _accessToken && navigate('/packages')}>
+            <button className={styles.filter} onClick={() => _accessToken && navigate('/packages')}>
                <img
                   width={22}
                   height={19}
@@ -85,9 +85,12 @@ export default function Homepage() {
                   alt=''
                />
                <p>Subscription</p>
-            </div>
-            <div className={styles.filter} onClick={() => {
-                openTelegramLink(currentChannel?.admin_id as string);
+            </button>
+            <button className={styles.filter} onClick={() => {
+                console.log("Trying to open Telegram link");
+               if (currentChannel?.admin_id) {
+                  openTelegramLink(`${currentChannel.admin_id}`);
+               }
             }}>
                <img
                   width={22}
@@ -96,7 +99,7 @@ export default function Homepage() {
                   alt=''
                />
                <p>Contacts</p>
-            </div>
+            </button>
             <div className={styles.switchFilter}>
                <Switch direction={direction} setDirection={setDirection}/>
             </div>
