@@ -18,15 +18,14 @@ async def handle_media_message(message: Message):
     attacments = []
     ids = []
     if message.photo:
-        for photo in message.photo:
-            if not photo.file_id in ids:
-                attacments.append(
-                    AttachmentSchema(
-                        attachment_type=AttachmentTypes.photo,
-                        attachment_id=photo.file_id
-                    )    
+        if not message.photo[-1] in ids:
+            attacments.append(
+                AttachmentSchema(
+                    attachment_type=AttachmentTypes.photo,
+                    attachment_id=message.photo[-1].file_id
                 )
-                ids.append(photo.file_id)
+            )
+            ids.append(message.photo[-1].file_id)
 
     if message.document:
         attacments.append(
