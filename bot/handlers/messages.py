@@ -59,21 +59,22 @@ async def handle_media_message(message: Message):
                 attachment_id=message.voice.file_id
             )
         )
-        
-    direction = re.findall(r"Direction:\s*(\w+)", message.text if not message.caption else
-    message.caption)
-    if not direction:
-        logger.error(f"Direction not found in message: {message.message_id}")
-    else:
-        error = await messages_api.create_message(
-            MessageSchema(
-                message_id=message.message_id,
-                channel_id=message.chat.id,
-                text=message.text,
-                attachments=attacments,
-                direction=direction[0] if direction else None
-            )
+
+    direction = re.findall(
+        r"Direction:\s*(\w+)", message.text if not message.caption else
+        message.caption
         )
 
-        if error:
-            logger.error(f"Status: {error['status']}, Message: {error['message']["detail"]}")
+    error = await messages_api.create_message(
+        MessageSchema(
+            message_id=message.message_id,
+            channel_id=message.chat.id,
+            text=message.text if not message.caption else
+            message.caption,
+            attachments=attacments,
+            direction=direction[0] if direction else None
+        )
+    )
+
+    if error:
+        logger.error(f"Status: {error['status']}, Message: {error['message']["detail"]}")
