@@ -88,7 +88,7 @@ export default function Homepage() {
             </button>
             <button className={styles.filter} onClick={() => {
                 console.log("Trying to open Telegram link");
-               if (currentChannel?.admin_id) {
+               if (currentChannel && currentChannel.admin_id) {
                   openTelegramLink(`${currentChannel.admin_id}`);
                }
             }}>
