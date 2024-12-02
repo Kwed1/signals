@@ -7,7 +7,7 @@ import ErrorSnackbar from 'shared/ui/Snackbar/Snackbar'
 import {init} from '@telegram-apps/sdk';
 
 function App() {
-  // init();
+  init();
   return (
     <ErrorProvider>
       <BrowserRouter>
