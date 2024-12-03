@@ -15,9 +15,12 @@ async def main():
         token=config.BOT_TOKEN,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML)
     )
+
     dp = Dispatcher()
 
+    dp.include_routers(handlers.group_event_handler_router)
     dp.include_routers(handlers.start_router)
+    dp.include_routers(handlers.channel_post_handler)
     dp.include_routers(handlers.messages_router)
     await dp.start_polling(bot)
 

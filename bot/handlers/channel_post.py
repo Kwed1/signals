@@ -1,21 +1,18 @@
-import logging
-from pprint import pprint
 import re
-from aiogram import  Router
-from aiogram.filters import Command
+
+from aiogram import Router
 from aiogram.types import Message
 
-from core.logger import get_logger
-from schemas.message import AttachmentSchema, AttachmentTypes, MessageSchema
+from backend.schemas.message import AttachmentSchema, AttachmentTypes, MessageSchema
+from bot.core.logger import get_logger
 import api.messages as messages_api
-
 
 router = Router()
 logger = get_logger(__name__)
 
 
-@router.message()
-async def handle_media_message(message: Message):
+@router.channel_post()
+async def on_channel_post(message: Message):
     attacments = []
     ids = []
     if message.photo:
@@ -51,7 +48,7 @@ async def handle_media_message(message: Message):
                 attachment_id=message.audio.file_id
             )
         )
-    
+
     if message.voice:
         attacments.append(
             AttachmentSchema(
@@ -60,17 +57,18 @@ async def handle_media_message(message: Message):
             )
         )
 
-    direction = re.findall(
-        r"Direction:\s*(\w+)", message.text if not message.caption else
-        message.caption
+    text = message.text if not message.caption else message.caption
+    direction = None
+    if text is not None and text != '':
+        direction = re.findall(
+            r"Direction:\s*(\w+)", text
         )
 
     error = await messages_api.create_message(
         MessageSchema(
             message_id=message.message_id,
             channel_id=message.chat.id,
-            text=message.text if not message.caption else
-            message.caption,
+            text=text,
             attachments=attacments,
             direction=direction[0] if direction else None
         )
@@ -78,3 +76,5 @@ async def handle_media_message(message: Message):
 
     if error:
         logger.error(f"Status: {error['status']}, Message: {error['message']["detail"]}")
+
+
