@@ -31,6 +31,18 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ mediaItems }) => {
         <img src={media.attachment_link} alt="media" style={itemStyle} />
       );
     },
+    renderThumbInner: () => (
+      <img
+        src={media.attachment_link}
+        alt="thumbnail"
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          borderRadius: '5px',
+        }}
+      />
+    ),
   }));
 
   return (
@@ -38,6 +50,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ mediaItems }) => {
       <Gallery
         items={galleryItems}
         showFullscreenButton={false}
+        showPlayButton={false} 
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import icons from 'assets/icons/sprites/sprite.svg';
+import icons from 'assets/icons/sprites/sprite.svg'
 
 interface IconProps {
     id: string;
@@ -8,7 +8,7 @@ interface IconProps {
     lineColor?: string;
 }
 
-export default function Icon({ id, className, size = 24, color = "transparent", lineColor = '#fff'}: IconProps) {
+export default function Icon({ id, className, size = 25, color = "transparent", lineColor = '#fff'}: IconProps) {
     return (
         <svg className={className} width={size} height={size} fill={color} stroke={lineColor}>
             <use xlinkHref={`${icons}#${id}`} />
