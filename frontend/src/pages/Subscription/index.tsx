@@ -4,22 +4,25 @@ import 'swiper/css/pagination'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { DiamondPackage, FreePackage, GoldPackage } from './ui/Boxes'
-import { useTelegram } from 'shared/hooks/useTelegram'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { backButton } from '@telegram-apps/sdk'
 
 export default function SubscriptionPage() {
 
-	const {showBackButton, hideBackButton, goBack} = useTelegram();
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		showBackButton();
+		if(backButton.show.isAvailable()) {
+			backButton.show();
+		}
 		const handleGoBack = () => navigate('/');
-		goBack(handleGoBack);
+		if(backButton.onClick.isAvailable()) {
+			backButton.onClick(handleGoBack);
+		}
 
-		return () => hideBackButton();
-	}, [])
+		return () => backButton.hide();
+	}, [navigate])
 
 	const array = [
 		<FreePackage/>,

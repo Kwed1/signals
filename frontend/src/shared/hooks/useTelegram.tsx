@@ -61,17 +61,6 @@
             }
         };
 
-        const showBackButton = () => {
-            tg.BackButton?.show();
-        }
-        const hideBackButton = () => {
-            tg.BackButton?.hide();
-        }
-
-        const goBack = (callback: () => void) => {
-            tg.BackButton?.onClick(callback)
-        }
-
         const userId = tg.initDataUnsafe?.user?.id || 1
         const user = tg.initDataUnsafe?.user?.username || 'kwed1'
         const name = tg.initDataUnsafe?.user?.first_name || null
@@ -84,8 +73,5 @@
             user,
             name,
             triggerHapticImpact,
-            showBackButton,
-            hideBackButton,
-            goBack,
         }
     }
