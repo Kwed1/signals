@@ -16,8 +16,7 @@ export default function SubscriptionPage() {
 		tg?.BackButton?.show();
 
 		const handleBack = () => {
-            console.log('Back button clicked');
-            navigate(-1);
+            window.history.back();
         };
 
         tg?.BackButton?.onClick(handleBack);
