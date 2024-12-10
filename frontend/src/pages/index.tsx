@@ -47,64 +47,66 @@ export default function Homepage() {
 
    return (
       <div className={styles.homepage}>
-         <div className={styles.top}>
-            {userData && userData.is_admin ? (      
-               <NavLink
-                  to={'/channels'}
-                  className={styles.icon}
-               >
+         <div className={styles.wrapper}>
+            <div className={styles.top}>
+               {userData && userData.is_admin ? (      
+                  <NavLink
+                     to={'/channels'}
+                     className={styles.icon}
+                  >
+                     <img
+                        width={23}
+                        height={23}
+                        src={homeicon}
+                        alt=''
+                     />
+                  </NavLink>
+               ) : (
+                  <>
+                     <Profile />
+                     <Icon id={'profile-icon'} className={styles.profileIcon} size={28} color='transparent' lineColor='#fff'/>
+                  </>
+               )}
+            </div>
+            <div className={styles.pinned}>
+               {currentChannel && currentChannel.pinned_message && (
+                  <PinnedMessage currentTab={currentTab}/>
+               )}
+            </div>
+            <Search
+               value={search}
+               onChange={e => setSearch(e.target.value)}
+            />
+            <div className={styles.filters}>
+               <button className={styles.filter} onClick={() => _accessToken && navigate('/packages')}>
                   <img
-                     width={23}
-                     height={23}
-                     src={homeicon}
+                     width={22}
+                     height={19}
+                     src={subIcon}
                      alt=''
                   />
-               </NavLink>
-            ) : (
-               <>
-                  <Profile />
-                  <Icon id={'profile-icon'} className={styles.profileIcon} size={28} color='transparent' lineColor='#fff'/>
-               </>
-            )}
-         </div>
-         <div className={styles.pinned}>
-            {currentChannel && currentChannel.pinned_message && (
-               <PinnedMessage currentTab={currentTab}/>
-            )}
-         </div>
-         <Search
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-         />
-         <div className={styles.filters}>
-            <button className={styles.filter} onClick={() => _accessToken && navigate('/packages')}>
-               <img
-                  width={22}
-                  height={19}
-                  src={subIcon}
-                  alt=''
-               />
-               <p>Subscription</p>
-            </button>
-            <button className={styles.filter} onClick={() => {
-                console.log("Trying to open Telegram link");
-               if (currentChannel && currentChannel.admin_id) {
-                  openTelegramLink(`${currentChannel.admin_id}`);
-               }
-            }}>
-               <img
-                  width={22}
-                  height={19}
-                  src={contactIcon}
-                  alt=''
-               />
-               <p>Contacts</p>
-            </button>
-            <div className={styles.switchFilter}>
-               <Switch direction={direction} setDirection={setDirection}/>
+                  <p>Subscription</p>
+               </button>
+               <button className={styles.filter} onClick={() => {
+                   console.log("Trying to open Telegram link");
+                  if (currentChannel && currentChannel.admin_id) {
+                     openTelegramLink(`${currentChannel.admin_id}`);
+                  }
+               }}>
+                  <img
+                     width={22}
+                     height={19}
+                     src={contactIcon}
+                     alt=''
+                  />
+                  <p>Contacts</p>
+               </button>
+               <div className={styles.switchFilter}>
+                  <Switch direction={direction} setDirection={setDirection}/>
+               </div>
             </div>
+            <MessagesContainer channel_id={currentTab} search={search} messages={messages} setMessages={setMessages} direction={direction}/>
          </div>
-         <MessagesContainer channel_id={currentTab} search={search} messages={messages} setMessages={setMessages} direction={direction}/>
          <Navbar changePage={setCurrentTab} page={currentTab}/>
       </div>
    );
