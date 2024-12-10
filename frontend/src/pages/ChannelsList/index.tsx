@@ -1,17 +1,17 @@
-import ChannelCard from 'entities/ChannelCard/ChannelCard';
-import Search from 'entities/Search/Search';
-import ChoiceModal from 'features/ChoiceModal/ChoiceModal';
-import DeleteModal from 'features/DeleteModal/DeleteModal';
-import { useEffect, useMemo, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import useChannelsStore from 'shared/store/useChannelsStore';
-import useModalsStore from 'shared/store/useModalsStore';
-import AdminNav from 'shared/ui/AdminNav/AdminNav';
-import Icon from 'shared/ui/Icon/Icon';
-import styles from './ChannelsList.module.scss';
-import useTokenStore from 'shared/store/useTokenStore';
-import useApi from 'shared/utils/ApiResponseHandler';
-import { Channel } from 'shared/types';
+import ChannelCard from 'entities/ChannelCard/ChannelCard'
+import Search from 'entities/Search/Search'
+import ChoiceModal from 'features/ChoiceModal/ChoiceModal'
+import DeleteModal from 'features/DeleteModal/DeleteModal'
+import { useEffect, useMemo, useState } from 'react'
+import { NavLink } from 'react-router-dom'
+import useChannelsStore from 'shared/store/useChannelsStore'
+import useModalsStore from 'shared/store/useModalsStore'
+import useTokenStore from 'shared/store/useTokenStore'
+import { Channel } from 'shared/types'
+import AdminNav from 'shared/ui/AdminNav/AdminNav'
+import Icon from 'shared/ui/Icon/Icon'
+import useApi from 'shared/utils/ApiResponseHandler'
+import styles from './ChannelsList.module.scss'
 
 export default function ChannelsList() {
    const [search, setSearch] = useState<string>('');
@@ -41,6 +41,8 @@ export default function ChannelsList() {
       }
    }, [_accessToken])
 
+
+
    return (
       <>
          <div className={styles.ChannelsList}>
@@ -51,7 +53,7 @@ export default function ChannelsList() {
                   className={styles.addIcon}
                >
                   <Icon
-                     size={23}
+                     width={23}
                      className={styles.icon}
                      id='add-square'
                      color='transparent'

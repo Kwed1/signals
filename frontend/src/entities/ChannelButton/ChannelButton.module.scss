@@ -11,9 +11,11 @@
     align-items: center;
     border-radius: 8px;
     flex-shrink: 0;
+    border: 2px solid transparent;
 
     &.current {
         background-color: #ffcc00;
+        border: 2px solid #171a1f;
     }
 
     &.current span {

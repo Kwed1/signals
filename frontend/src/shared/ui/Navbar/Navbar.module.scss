@@ -1,14 +1,36 @@
 .channels {
    position: fixed;
-   width: 100%;
+   background-color: #111;
+   padding: 14px 19px;
+   width: 100dvw;
+   bottom: 0;
+}
+
+.channelsWrapper {
    display: flex;
    flex-wrap: nowrap;
    gap: 25px;
-   align-items: center;
-   margin-top: 12px;
-   bottom: 16px;
+   max-width: calc(100dvw - 38px);
    overflow-x: scroll;
-   padding-right: 38px;
+   scroll-behavior: smooth;
+}
+
+.navBtns img{
+   position: absolute;
+   top: 50%;
+   translate: 0 -50%;
+   padding-block: 22px;
+   user-select: none;
+   -webkit-user-select: none;
+   -webkit-user-drag: none;
+}
+
+.navBtns img:first-child {
+   left: -2px;
+}
+
+.navBtns img:last-child {
+   right: -2px;
 }
 
 .pad {

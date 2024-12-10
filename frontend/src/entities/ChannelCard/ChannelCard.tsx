@@ -1,7 +1,8 @@
-import { Channel } from 'shared/types';
-import styles from './ChannelCard.module.scss';
-import useChannelsStore from 'shared/store/useChannelsStore';
-import useModalsStore from 'shared/store/useModalsStore';
+import useChannelsStore from 'shared/store/useChannelsStore'
+import useModalsStore from 'shared/store/useModalsStore'
+import { Channel } from 'shared/types'
+import Icon from 'shared/ui/Icon/Icon'
+import styles from './ChannelCard.module.scss'
     
 export default function ChannelCard({name, admin_id, channel_id, icon_type, link, last_message, pinned_message}: Channel) {
 
@@ -23,7 +24,12 @@ export default function ChannelCard({name, admin_id, channel_id, icon_type, link
             className={`${styles.ChannelCard} ${channel_id === selectedChannel?.channel_id ? styles.selected : ''}`}
             onClick={() => selectChannel()}
         >
-            <div className={styles.imageWrapper}><div className={styles.image}></div></div>
+            <div className={styles.imageWrapper}>
+                <Icon
+                    className={''}
+                    id={icon_type}
+                />
+            </div>
             <div className={styles.info}>
                 <p className={styles.channelName}>{name}</p>
                 <p className={styles.lastMess}>{last_message && last_message?.text.length > 34 ? `${last_message?.text.slice(0, 35)}...` : last_message?.text}</p>

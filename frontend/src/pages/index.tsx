@@ -1,6 +1,3 @@
-import contactIcon from 'assets/icons/filter-contact.svg'
-import subIcon from 'assets/icons/filter-sub.svg'
-import homeicon from 'assets/icons/home.svg'
 import MessagesContainer from 'entities/MessagesContainer/MessagesContainer'
 import PinnedMessage from 'entities/PinnedMessage/PinnedMessage'
 import Search from 'entities/Search/Search'
@@ -17,6 +14,7 @@ import Navbar from 'shared/ui/Navbar/Navbar'
 import useApi from 'shared/utils/ApiResponseHandler'
 import styles from './index.module.scss'
 import { openTelegramLink } from "@telegram-apps/sdk";
+import logo from 'assets/app-logo.png';
 
 export default function Homepage() {
    const [search, setSearch] = useState<string>('');
@@ -47,64 +45,57 @@ export default function Homepage() {
 
    return (
       <div className={styles.homepage}>
-         <div className={styles.top}>
-            {userData && userData.is_admin ? (      
-               <NavLink
-                  to={'/channels'}
-                  className={styles.icon}
-               >
-                  <img
-                     width={23}
-                     height={23}
-                     src={homeicon}
-                     alt=''
-                  />
-               </NavLink>
-            ) : (
-               <>
-                  <Profile />
-                  <Icon id={'profile-icon'} className={styles.profileIcon} size={28} color='transparent' lineColor='#fff'/>
-               </>
-            )}
-         </div>
-         <div className={styles.pinned}>
-            {currentChannel && currentChannel.pinned_message && (
-               <PinnedMessage currentTab={currentTab}/>
-            )}
-         </div>
-         <Search
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-         />
-         <div className={styles.filters}>
-            <button className={styles.filter} onClick={() => _accessToken && navigate('/packages')}>
-               <img
-                  width={22}
-                  height={19}
-                  src={subIcon}
-                  alt=''
-               />
-               <p>Subscription</p>
-            </button>
-            <button className={styles.filter} onClick={() => {
-                console.log("Trying to open Telegram link");
-               if (currentChannel && currentChannel.admin_id) {
-                  openTelegramLink(`${currentChannel.admin_id}`);
-               }
-            }}>
-               <img
-                  width={22}
-                  height={19}
-                  src={contactIcon}
-                  alt=''
-               />
-               <p>Contacts</p>
-            </button>
-            <div className={styles.switchFilter}>
-               <Switch direction={direction} setDirection={setDirection}/>
+         <div className={styles.wrapper}>
+            <div className={styles.top}>
+               {userData && userData.is_admin ? (      
+                  <>
+                     <img width={60} height={60} src={logo} alt="" />
+                     <NavLink
+                        to={'/channels'}
+                        className={styles.icon}
+                     >
+                           <Icon className={styles.icon_home} id='admin_home' width={24} color='#000' lineColor='#000'/>
+                     </NavLink>
+                  </>
+               ) : (
+                  <>
+                     <img width={60} height={60} src={logo} alt="" />
+                     <div className={styles.left}>
+                        <Profile />
+                        <Icon id={'profile-icon'} className={styles.profileIcon} width={28} color='transparent' lineColor='#fff'/>
+                     </div>
+                  </>
+               )}
             </div>
+            <div className={styles.pinned}>
+               {currentChannel && currentChannel.pinned_message && (
+                  <PinnedMessage currentTab={currentTab}/>
+               )}
+            </div>
+            <Search
+               value={search}
+               onChange={e => setSearch(e.target.value)}
+            />
+            <div className={styles.filters}>
+               <button className={styles.filter} onClick={() => _accessToken && navigate('/packages')}>
+                  <Icon className={styles.subscriptionIcon} id='card' width={24} height={24} color='#fff'/>
+                  <p>Subscription</p>
+               </button>
+               <button className={styles.filter} onClick={() => {
+                   console.log("Trying to open Telegram link");
+                  if (currentChannel && currentChannel.admin_id) {
+                     openTelegramLink(`${currentChannel.admin_id}`);
+                  }
+               }}>
+                  <Icon className={styles.contactsIcon} id='card_id' width={24} height={24} color='#fff'/>
+                  <p>Contacts</p>
+               </button>
+               <div className={styles.switchFilter}>
+                  <Switch direction={direction} setDirection={setDirection}/>
+               </div>
+            </div>
+            <MessagesContainer channel_id={currentTab} search={search} messages={messages} setMessages={setMessages} direction={direction}/>
          </div>
-         <MessagesContainer channel_id={currentTab} search={search} messages={messages} setMessages={setMessages} direction={direction}/>
          <Navbar changePage={setCurrentTab} page={currentTab}/>
       </div>
    );

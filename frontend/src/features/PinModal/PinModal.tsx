@@ -20,7 +20,7 @@ export default function PinModal() {
             <Icon
                className={styles.close}
                id='close'
-               size={34}
+               width={34}
             />
          </button>
          <MessagesContainer channel_id={selectedChannel?.channel_id as number} messages={messages} setMessages={setMessages} allMessagesMode={true}/>

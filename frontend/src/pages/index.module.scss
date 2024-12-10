@@ -1,4 +1,4 @@
-.homepage {
+.homepage .wrapper{
    padding: 19px 19px 0 19px;
 }
 
@@ -7,6 +7,12 @@
    justify-content: space-between;
    align-items: center;
    margin-bottom: 20px;
+
+   .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+   }
 }
 
 .icon {
