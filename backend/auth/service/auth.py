@@ -17,6 +17,7 @@ from backend.core.config import (
     ACCESS_TOKEN_EXPIRE_MINUTES,
 )
 from backend.core.database import get_db
+from backend.service.image_service import ImageService
 
 
 class UserNotFoundException(HTTPException):
@@ -46,8 +47,10 @@ class AuthService:
         self,
         db: AsyncSession = Depends(get_db),
         token_service: TokenService = Depends(),
+        image_service: ImageService = Depends(),
     ):
         self.db = db
+        self.image_service = image_service
         self.token_service = token_service
 
     async def authorized_user(self, token: str = Depends(oauth2_scheme)):
@@ -84,13 +87,11 @@ class AuthService:
             expires_delta=access_token_expires,
         )
 
-        return TokenSchema(token=access_token)
+        return TokenSchema(token=access_token, avatar=(await self.image_service.get_avatar(user.telegram_id)))
 
     async def _create_user(self, telegram_id: int, username: str) -> AppUser:
         async with self.db as session:
             try:
-                image = await self._get_image(telegram_id)
-
                 user = AppUser(telegram_id=telegram_id, username=username)
                 session.add(user)
                 await session.commit()
@@ -100,33 +101,6 @@ class AuthService:
                 await session.rollback()
 
         raise Exception("Try to authorize later")
-
-    async def _get_image(self, user_id: int):
-        url = f"https://api.telegram.org/bot7642565462:AAHXQjEPCPI-1ah8aKOQoKAyzHGycP9xNSw/getUserProfilePhotos?user_id={user_id}"
-        response = requests.get(url)
-        if response.status_code == 200:
-            data = response.json()
-            if data["ok"] and data["result"]["total_count"] > 0:
-                user_image = data["result"]["photos"][0][0]["file_id"]
-            else:
-                user_image = ""
-        else:
-            user_image = ""
-
-        url = f"https://api.telegram.org/bot7642565462:AAHXQjEPCPI-1ah8aKOQoKAyzHGycP9xNSw/getFile?file_id={user_image}"
-
-        response = requests.get(url)
-        if response.status_code == 200:
-            data = response.json()
-            if data["ok"]:
-                # file_info = data['result']['photos'][0][0]
-                # file_id = file_info['file_id']
-                file_path = data["result"]["file_path"]
-                user_image = f"https://api.telegram.org/file/bot7642565462:AAHXQjEPCPI-1ah8aKOQoKAyzHGycP9xNSw/{file_path}"
-        else:
-            user_image = ""
-
-        return user_image
 
     async def _get_user_by_telegram_id_async(self, telegram_id: int):
         user = (
