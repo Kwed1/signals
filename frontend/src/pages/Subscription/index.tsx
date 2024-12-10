@@ -1,7 +1,7 @@
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { Navigation, Pagination } from 'swiper/modules'
+import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { DiamondPackage, FreePackage, GoldPackage } from './ui/Boxes'
 
