@@ -6,13 +6,16 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { DiamondPackage, FreePackage, GoldPackage } from './ui/Boxes'
 import { useTelegram } from 'shared/hooks/useTelegram'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function SubscriptionPage() {
 
-	const {showBackButton, hideBackButton} = useTelegram();
+	const {showBackButton, hideBackButton, goBack} = useTelegram();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		showBackButton();
+		goBack(() => navigate('/'))
 
 		return () => hideBackButton();
 	}, [])

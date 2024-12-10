@@ -27,8 +27,6 @@ interface TelegramWebApp {
         onClick: (callback: () => void) => void
         offClick: (callback: () => void) => void
     }
-    showBackButton?: () => void;
-    hideBackButton?: () => void;
     HapticFeedback: TelegramHapticFeedback
     shareToStory: (mediaUrl: string, params: { type: 'image' | 'video'; caption?: string }) => Promise<void>
 }
@@ -70,6 +68,10 @@ export function useTelegram() {
         tg.BackButton?.hide();
     }
 
+    const goBack = (callback: () => void) => {
+        tg.BackButton?.onClick(callback)
+    }
+
     const userId = tg.initDataUnsafe?.user?.id || 1
     const user = tg.initDataUnsafe?.user?.username || 'kwed1'
     const name = tg.initDataUnsafe?.user?.first_name || null
@@ -83,6 +85,7 @@ export function useTelegram() {
         name,
         triggerHapticImpact,
         showBackButton,
-        hideBackButton
+        hideBackButton,
+        goBack,
     }
 }
