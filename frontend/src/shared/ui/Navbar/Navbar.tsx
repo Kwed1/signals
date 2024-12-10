@@ -3,6 +3,7 @@ import caret_right from 'assets/icons/sprites/icons/channels/caret-right.png';
 import ChannelButton from 'entities/ChannelButton/ChannelButton';
 import { Dispatch, SetStateAction, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useTelegram } from 'shared/hooks/useTelegram';
 import useChannelsStore from 'shared/store/useChannelsStore';
 import styles from './Navbar.module.scss';
 
@@ -12,6 +13,7 @@ interface NavbarProps {
 }
 
 export default function Navbar({ changePage, page }: NavbarProps) {
+   const { triggerHapticImpact } = useTelegram();
    const location = useLocation();
    const { channels } = useChannelsStore();
    let pathname = location.pathname;
@@ -44,7 +46,7 @@ export default function Navbar({ changePage, page }: NavbarProps) {
                   src={caret_left}
                   alt=''
                   onClick={() => {
-                     if(containerRef.current) {
+                     if (containerRef.current) {
                         containerRef.current.scrollLeft -= 66;
                      }
                   }}
@@ -53,7 +55,7 @@ export default function Navbar({ changePage, page }: NavbarProps) {
                   src={caret_right}
                   alt=''
                   onClick={() => {
-                     if(containerRef.current) {
+                     if (containerRef.current) {
                         containerRef.current.scrollLeft += 66;
                      }
                   }}
@@ -67,13 +69,14 @@ export default function Navbar({ changePage, page }: NavbarProps) {
                   channels.map(channel => (
                      <ChannelButton
                         key={channel.channel_id}
-                        onClick={(id) => {
+                        onClick={id => {
                            changePage(id);
+                           triggerHapticImpact('soft');
                         }}
                         name={channel.name}
                         icon={channel.icon_type}
                         id={Number(channel.channel_id)}
-                           current={page === channel.channel_id}
+                        current={page === channel.channel_id}
                      />
                   ))}
             </div>

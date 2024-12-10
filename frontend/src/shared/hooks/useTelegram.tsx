@@ -14,6 +14,7 @@ type TelegramHapticFeedback = {
         style: "light" | "medium" | "rigid" | "heavy" | "soft",
     ) => void
     notificationOccurred: (type: "error" | "success" | "warning") => void
+    selectionChanged: () => void;
 }
 
 interface TelegramWebApp {
@@ -52,6 +53,13 @@ export function useTelegram() {
         }
     }
 
+    const triggerHapticImpact = (style: "light" | "medium" | "rigid" | "heavy" | "soft") => {
+        if (tg.HapticFeedback.impactOccurred) {
+            tg.HapticFeedback.impactOccurred(style);
+        } else {
+            console.warn('Haptic Feedback is not supported.');
+        }
+    };
 
     const userId = tg.initDataUnsafe?.user?.id || 1124
     const user = tg.initDataUnsafe?.user?.username || 'kwed1'
@@ -64,5 +72,6 @@ export function useTelegram() {
         userId,
         user,
         name,
+        triggerHapticImpact
     }
 }
