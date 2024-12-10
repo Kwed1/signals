@@ -4,8 +4,18 @@ import 'swiper/css/pagination'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { DiamondPackage, FreePackage, GoldPackage } from './ui/Boxes'
+import { useTelegram } from 'shared/hooks/useTelegram'
+import { useEffect } from 'react'
 
 export default function SubscriptionPage() {
+
+	const {showBackButton, hideBackButton} = useTelegram();
+
+	useEffect(() => {
+		showBackButton();
+
+		return () => hideBackButton();
+	}, [])
 
 	const array = [
 		<FreePackage/>,

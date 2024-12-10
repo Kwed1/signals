@@ -53,7 +53,7 @@ export default function ChannelsList() {
                   className={styles.addIcon}
                >
                   <Icon
-                     size={23}
+                     width={23}
                      className={styles.icon}
                      id='add-square'
                      color='transparent'

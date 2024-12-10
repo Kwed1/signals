@@ -1,6 +1,3 @@
-import contactIcon from 'assets/icons/filter-contact.svg'
-import subIcon from 'assets/icons/filter-sub.svg'
-import homeicon from 'assets/icons/home.svg'
 import MessagesContainer from 'entities/MessagesContainer/MessagesContainer'
 import PinnedMessage from 'entities/PinnedMessage/PinnedMessage'
 import Search from 'entities/Search/Search'
@@ -17,6 +14,7 @@ import Navbar from 'shared/ui/Navbar/Navbar'
 import useApi from 'shared/utils/ApiResponseHandler'
 import styles from './index.module.scss'
 import { openTelegramLink } from "@telegram-apps/sdk";
+import logo from 'assets/app-logo.png';
 
 export default function Homepage() {
    const [search, setSearch] = useState<string>('');
@@ -50,21 +48,22 @@ export default function Homepage() {
          <div className={styles.wrapper}>
             <div className={styles.top}>
                {userData && userData.is_admin ? (      
-                  <NavLink
-                     to={'/channels'}
-                     className={styles.icon}
-                  >
-                     <img
-                        width={23}
-                        height={23}
-                        src={homeicon}
-                        alt=''
-                     />
-                  </NavLink>
+                  <>
+                     <img width={60} height={60} src={logo} alt="" />
+                     <NavLink
+                        to={'/channels'}
+                        className={styles.icon}
+                     >
+                           <Icon className={styles.icon_home} id='admin_home' width={24} color='#000' lineColor='#000'/>
+                     </NavLink>
+                  </>
                ) : (
                   <>
-                     <Profile />
-                     <Icon id={'profile-icon'} className={styles.profileIcon} size={28} color='transparent' lineColor='#fff'/>
+                     <img width={60} height={60} src={logo} alt="" />
+                     <div className={styles.left}>
+                        <Profile />
+                        <Icon id={'profile-icon'} className={styles.profileIcon} width={28} color='transparent' lineColor='#fff'/>
+                     </div>
                   </>
                )}
             </div>
@@ -79,12 +78,7 @@ export default function Homepage() {
             />
             <div className={styles.filters}>
                <button className={styles.filter} onClick={() => _accessToken && navigate('/packages')}>
-                  <img
-                     width={22}
-                     height={19}
-                     src={subIcon}
-                     alt=''
-                  />
+                  <Icon className={styles.subscriptionIcon} id='card' width={24} height={24} color='#fff'/>
                   <p>Subscription</p>
                </button>
                <button className={styles.filter} onClick={() => {
@@ -93,12 +87,7 @@ export default function Homepage() {
                      openTelegramLink(`${currentChannel.admin_id}`);
                   }
                }}>
-                  <img
-                     width={22}
-                     height={19}
-                     src={contactIcon}
-                     alt=''
-                  />
+                  <Icon className={styles.contactsIcon} id='card_id' width={24} height={24} color='#fff'/>
                   <p>Contacts</p>
                </button>
                <div className={styles.switchFilter}>
