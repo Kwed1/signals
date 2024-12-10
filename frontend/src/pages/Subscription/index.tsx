@@ -15,7 +15,8 @@ export default function SubscriptionPage() {
 
 	useEffect(() => {
 		showBackButton();
-		goBack(() => navigate('/'))
+		const handleGoBack = () => navigate('/');
+		goBack(handleGoBack);
 
 		return () => hideBackButton();
 	}, [])
