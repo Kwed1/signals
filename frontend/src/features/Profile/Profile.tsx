@@ -6,10 +6,10 @@ export default function Profile() {
 
    return (
       <div className={styles.profile}>
+         <p className={styles.nickname}>{userData && userData.sub}</p>
          <div className={styles.avatar}>
             {userAvatar && <img width={'100%'} height={'100%'} src={userAvatar} alt="" loading='lazy'/>}
          </div>
-         <p className={styles.nickname}>{userData && userData.sub}</p>
       </div>
    );
 }

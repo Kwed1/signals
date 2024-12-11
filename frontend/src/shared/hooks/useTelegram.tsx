@@ -61,7 +61,7 @@
             }
         };
 
-        const userId = tg.initDataUnsafe?.user?.id || 1
+        const userId = tg.initDataUnsafe?.user?.id || 712241291
         const user = tg.initDataUnsafe?.user?.username || 'kwed1'
         const name = tg.initDataUnsafe?.user?.first_name || null
 

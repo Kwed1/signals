@@ -13,7 +13,6 @@ import Icon from 'shared/ui/Icon/Icon'
 import Navbar from 'shared/ui/Navbar/Navbar'
 import useApi from 'shared/utils/ApiResponseHandler'
 import styles from './index.module.scss'
-// import { openTelegramLink } from "@telegram-apps/sdk";
 import logo from 'assets/app-logo.png';
 import {initUtils} from '@tma.js/sdk';
 
@@ -64,7 +63,6 @@ export default function Homepage() {
                      <img width={60} height={60} src={logo} alt="" />
                      <div className={styles.left}>
                         <Profile />
-                        <Icon id={'profile-icon'} className={styles.profileIcon} width={28} color='transparent' lineColor='#fff'/>
                      </div>
                   </>
                )}
