@@ -862,6 +862,11 @@
   resolved "https://registry.yarnpkg.com/@telegram-apps/types/-/types-1.1.0.tgz#103849517fbf5ce0ac12dab8a94816833af3f582"
   integrity sha512-8tBIe9N8huDsfvv/EDv5S5tokVjl16adpsSlYdhvNzj0rWIebaf28gBBU9fAUWfwZNIBlDCOhFyk3dqjPhlHzA==
 
+"@tma.js/sdk@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@tma.js/sdk/-/sdk-2.7.0.tgz#1ae1fa6e5b21f6a5d959328ba84096bf5e6cc910"
+  integrity sha512-LRuJdoEbAqKmSYccvXx5emSnye2je8oIbBVPtV+BmcNoa/dCZ0gFVkaeuyBqzroGtfGDyGO/WebU54ie5MKmCQ==
+
 "@types/estree@1.0.6", "@types/estree@^1.0.6":
   version "1.0.6"
   resolved "https://registry.npmjs.org/@types/estree/-/estree-1.0.6.tgz"

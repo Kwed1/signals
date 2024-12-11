@@ -13,8 +13,9 @@ import Icon from 'shared/ui/Icon/Icon'
 import Navbar from 'shared/ui/Navbar/Navbar'
 import useApi from 'shared/utils/ApiResponseHandler'
 import styles from './index.module.scss'
-import { openTelegramLink } from "@telegram-apps/sdk";
+// import { openTelegramLink } from "@telegram-apps/sdk";
 import logo from 'assets/app-logo.png';
+import {initUtils} from '@tma.js/sdk';
 
 export default function Homepage() {
    const [search, setSearch] = useState<string>('');
@@ -27,6 +28,7 @@ export default function Homepage() {
    let _accessToken = getToken();
    const navigate = useNavigate();
    const api = useApi();
+   const utils = initUtils();
 
    const currentChannel = channels.find(channel => channel.channel_id === currentTab);
 
@@ -84,7 +86,7 @@ export default function Homepage() {
                <button className={styles.filter} onClick={() => {
                    console.log("Trying to open Telegram link");
                   if (currentChannel && currentChannel.admin_id) {
-                     openTelegramLink(`${currentChannel.admin_id}`);
+                     utils.openTelegramLink(`${currentChannel.admin_id}`);
                   }
                }}>
                   <Icon className={styles.contactsIcon} id='card_id' width={24} height={24} color='#fff'/>
