@@ -44,7 +44,7 @@ export default function Message({text, style, specialStyle, canPin, id, attachme
 
     return (
         <div className={`${styles.message} ${style === 'left' ? styles.notmy : styles.my} ${specialStyle ? styles.special : ''} ${pinned && styles.pinned}`} onClick={pinMessage} >
-            <p style={{whiteSpace: 'pre-line', padding: '10px', fontSize: '18px'}}>{text}</p>
+            <p style={{whiteSpace: 'pre-line', padding: '10px', fontSize: '17px'}}>{text}</p>
             <MediaGallery mediaItems={attachments}/>
         </div>
     )
