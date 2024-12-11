@@ -1,5 +1,6 @@
 export interface authTokenInt {
 	token: string
+    avatar: string;
 }
 
 export interface JwtDecode {

@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 export const useSignIn = () => {
    const { user, userId } = useTelegram();
    const {setToken} = useTokenStore();
-   const {setUserData} = useUserStore();
+   const {setUserData, setUserAvatar} = useUserStore();
 
    const signIn = async () => {
       const res = await axios<authTokenInt>(
@@ -23,6 +23,7 @@ export const useSignIn = () => {
       );
       if (res && res?.data?.token) {
          setToken(res?.data?.token);
+         setUserAvatar(res.data.avatar);
          setUserData(jwtDecode<JwtDecode>(res.data.token));
       }
    };
