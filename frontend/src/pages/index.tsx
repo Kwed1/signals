@@ -27,7 +27,7 @@ export default function Homepage() {
    let _accessToken = getToken();
    const navigate = useNavigate();
    const api = useApi();
-   // const utils = initUtils();
+   const utils = initUtils();
 
    const currentChannel = channels.find(channel => channel.channel_id === currentTab);
 
@@ -84,7 +84,7 @@ export default function Homepage() {
                <button className={styles.filter} onClick={() => {
                    console.log("Trying to open Telegram link");
                   if (currentChannel && currentChannel.admin_id) {
-                     // utils.openTelegramLink(`${currentChannel.admin_id}`);
+                     utils.openTelegramLink(`${currentChannel.admin_id}`);
                   }
                }}>
                   <Icon className={styles.contactsIcon} id='card_id' width={24} height={24} color='#fff'/>
