@@ -8,8 +8,8 @@ from backend.core.config import TELEGRAM_API_URL, BOT_TOKEN
 from backend.entities.channel import Channel
 from backend.entities.message import Attachment, Message
 from backend.exceptions.channel import ChannelNotFound
-from backend.exceptions.message import MessageAlreadyExists
-from backend.schemas.message import MessageSchema
+from backend.exceptions.message import MessageAlreadyExists, MessageNotFound
+from backend.schemas.message import MessageSchema, AddMessageSchema
 from backend.service.base_service import BaseService
 
 
@@ -23,8 +23,25 @@ class MessageService(BaseService):
         query = select(Channel).where(Channel.channel_id == channel_id)
         result = await self.session.execute(query)
         return result.scalar_one_or_none()
-    
-    async def add_message(self, form: MessageSchema):
+
+
+    async def update_message(self, schema: AddMessageSchema):
+        message = await self._get_message(schema.message_id)
+        if message:
+            raise MessageNotFound()
+
+        message.text = schema.text
+        await self.session.commit()
+
+    async def remove_message(self, message_id: int):
+        message = await self._get_message(message_id)
+        if message:
+            raise MessageNotFound()
+
+        await self.session.delete(message)
+        await self.session.commit()
+
+    async def add_message(self, form: AddMessageSchema):
         message = await self._get_message(form.message_id)
         if message:
             raise MessageAlreadyExists()

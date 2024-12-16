@@ -7,8 +7,6 @@ from aiogram.enums import ParseMode
 
 import handlers
 from core import config
-from core.logger import get_logger
-
 
 async def main():
     bot = Bot(

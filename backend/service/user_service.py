@@ -9,6 +9,7 @@ from backend.service.base_service import BaseService
 class UserService(BaseService):
     async def get_all_users(self):
         users = (await self.session.execute(select(AppUser))).scalars().all()
+
         return [UserSchema.model_validate(user, from_attributes=True) for user in users]
 
     async def get_subscriber(self, user_id: int):

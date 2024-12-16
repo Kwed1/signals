@@ -7,3 +7,7 @@ class UserSchema(BaseModel):
     telegram_id: int
     subscription: str | None = None
     end_at: datetime
+
+    @property
+    def link(self) -> str:
+        return f'https://t.me/{self.username}'
