@@ -1,9 +1,12 @@
+from uuid import UUID
+
 from pydantic import BaseModel
 
 from backend.schemas.message import MessageSchema
 
 
 class ChannelSchama(BaseModel):
+    id: UUID | None
     name: str
     icon_type: str
     long_channel_id: int

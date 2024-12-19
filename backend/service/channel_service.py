@@ -18,11 +18,13 @@ class ChannelService(BaseService):
             )
         ).scalar_one_or_none()
         return ChannelSchama(
-            channel_id=channel.channel_id,
+            id=channel.id,
             name=channel.name,
             icon_type=channel.icon_type,
-            link=channel.link,
-            admin_id=channel.admin_id,
+            long_channel_id=channel.long_channel_id,
+            short_channel_id=channel.short_channel_id,
+            short_link=channel.short_link,
+            long_link=channel.long_link,
             last_message=MessageSchema.model_validate(
                 channel.messages[-1], from_attributes=True
             ) if channel.messages else None,
@@ -37,7 +39,8 @@ class ChannelService(BaseService):
         return [await self._model_validate_chanel(channel) for channel in channels]
     
     async def _get_channel(self, channel_id: int):
-        query = select(Channel).where(Channel.channel_id == channel_id)
+        query = select(Channel).where(Channel.long_channel_id == channel_id or
+                                      Channel.short_channel_id == channel_id)
         result = await self.session.execute(query)
         return result.scalar_one_or_none()
     
@@ -48,8 +51,12 @@ class ChannelService(BaseService):
         return await self._model_validate_chanel(channel)
 
     async def add_channel(self, form: ChannelSchama):
-        channel = await self._get_channel(form.channel_id)
+        channel = await self._get_channel(form.long_channel_id)
 
+        if channel:
+            raise ChannelAlreadyExists()
+
+        channel = await self._get_channel(form.short_channel_id)
         if channel:
             raise ChannelAlreadyExists()
 
