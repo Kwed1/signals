@@ -1,4 +1,4 @@
-from sqlalchemy import BigInteger, Column, ForeignKey, String
+from sqlalchemy import BigInteger, Column, ForeignKey, String, Boolean
 from sqlalchemy.orm import declared_attr, relationship
 from backend.entities.base_entity import BaseEntity
 
@@ -7,14 +7,14 @@ class Message(BaseEntity):
     __tablename__ = "messages"
 
     message_id = Column(BigInteger)
-    channel_id = Column(ForeignKey("channels.channel_id"))
+    channel_id = Column(ForeignKey("channels.id"), nullable=False)
+    is_long_channel = Column(Boolean, nullable=False, default=True)
     text = Column(String, nullable=True)
-    direction = Column(String, nullable=False)
 
     attachments = relationship(
-        "Attachment", 
-        back_populates='message', 
-        uselist=True, 
+        "Attachment",
+        back_populates='message',
+        uselist=True,
         lazy="selectin"
     )
     @declared_attr

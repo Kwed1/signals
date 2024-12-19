@@ -8,10 +8,14 @@ class Channel(BaseEntity):
     __tablename__ = "channels"
 
     name = Column(String, nullable=False)
-    channel_id = Column(BigInteger, nullable=False, unique=True)
-    link = Column(String,  nullable=False)
+
+    long_channel_id = Column(BigInteger, nullable=False, unique=True)
+    long_link = Column(String,  nullable=False)
+
+    short_channel_id = Column(BigInteger, nullable=False, unique=True)
+    short_link = Column(String, nullable=False)
+
     pinned_message_id = Column(BigInteger, nullable=True)
-    admin_id = Column(String, nullable=False)
     icon_type = Column(String, nullable=False)
 
     @declared_attr

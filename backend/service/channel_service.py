@@ -88,7 +88,6 @@ class ChannelService(BaseService):
         await self.session.commit()
         return 
     
-
     async def get_channel_messages(
         self, 
         channel_id: int,
@@ -96,10 +95,10 @@ class ChannelService(BaseService):
         offset: int,
         direction: DirectionTypes | None = None,
     ) -> list[MessageSchema]:
-        query = select(Message).where(Message.channel_id == channel_id)
+        query = select(Message).where(Message.channel_id == channel_id).order_by(Message.create_at.desc())
 
         if direction:
-            query = query.where(Message.direction == direction)
+            query = query.where(Message)
         query = query.limit(limit).offset(offset)
         result = await self.session.execute(query)
         messages = result.scalars().all()

@@ -58,19 +58,12 @@ async def on_channel_post(message: Message):
         )
 
     text = message.text if not message.caption else message.caption
-    direction = None
-    if text is not None and text != '':
-        direction = re.findall(
-            r"Direction:\s*(\w+)", text
-        )
-
     error = await messages_api.create_message(
         MessageSchema(
             message_id=message.message_id,
             channel_id=message.chat.id,
             text=text,
             attachments=attacments,
-            direction=direction[0] if direction else None
         )
     )
 

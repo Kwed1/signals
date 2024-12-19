@@ -6,9 +6,10 @@ from backend.schemas.message import MessageSchema
 class ChannelSchama(BaseModel):
     name: str
     icon_type: str
-    channel_id: int
-    link: str
-    admin_id: str
+    long_channel_id: int
+    long_link: str
+    short_channel_id: int
+    short_link: str
     last_message: MessageSchema | None = None
     pinned_message: MessageSchema | None = None
 

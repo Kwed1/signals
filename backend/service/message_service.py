@@ -2,7 +2,7 @@ from pprint import pprint
 
 import httpx
 from fastapi import HTTPException
-from sqlalchemy import select
+from sqlalchemy import select, func
 
 from backend.core.config import TELEGRAM_API_URL, BOT_TOKEN
 from backend.entities.channel import Channel
@@ -20,10 +20,10 @@ class MessageService(BaseService):
         return result.scalar_one_or_none()
     
     async def _get_channel(self, channel_id: int):
-        query = select(Channel).where(Channel.channel_id == channel_id)
+        query = select(Channel).where(Channel.long_channel_id == channel_id
+        or Channel.short_channel_id == channel_id)
         result = await self.session.execute(query)
         return result.scalar_one_or_none()
-
 
     async def update_message(self, schema: AddMessageSchema):
         message = await self._get_message(schema.message_id)
@@ -42,23 +42,24 @@ class MessageService(BaseService):
         await self.session.commit()
 
     async def add_message(self, form: AddMessageSchema):
-        message = await self._get_message(form.message_id)
-        if message:
-            raise MessageAlreadyExists()
-        
         channel = await self._get_channel(form.channel_id)
         if not channel:
             raise ChannelNotFound()
         
-        form = form.model_dump()
         attachments = [Attachment(
             attachment_link=(await self.get_attachment_link(
                 attachment_id=attachment['attachment_id'])),
             attachment_id=attachment['attachment_id'],
             attachment_type=attachment['attachment_type']
-        ) for attachment in form.pop("attachments")]
+        ) for attachment in form.attachments]
 
-        new_message = Message(**form, channel=channel, attachments=attachments)
+        new_message = Message(
+            message_id=form.message_id,
+            channel_id=channel.id,
+            text=form.text,
+            is_long_channel=True if form.message_id == channel.long_channel_id else False,
+            attachments=attachments,
+        )
         self.session.add(new_message)
         new_message = MessageSchema.model_validate(new_message, from_attributes=True)
         await self.session.commit()
@@ -86,3 +87,27 @@ class MessageService(BaseService):
             raise HTTPException(status_code=500, detail="Error while downloading file")
 
         return file_url
+
+    async def search_message(self, text: str, skip: int = 0, take: int = 10):
+        if len(text) < 3:
+            raise Exception('Minimum 3 symbols')
+
+        stmt = select(Message).where(
+            func.lower(Message.text).contains(func.lower(text))
+        ).limit(take).offset(skip)
+
+        result = await self.session.execute(stmt)
+        messages = result.scalars().all()
+
+        count_stmt = select(func.count()).select_from(Message).where(
+            func.lower(Message.text).contains(func.lower(text))
+        )
+        total_result = await self.session.execute(count_stmt)
+        total = total_result.scalar()
+
+        return {
+            "messages": [MessageSchema.model_validate(message, from_attributes=True) for message in
+                         messages],
+            "total": total
+        }
+

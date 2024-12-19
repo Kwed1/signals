@@ -19,3 +19,6 @@ async def update_message(form: AddMessageSchema, service: MessageService = Depen
 async def update_message(message_id: int, service: MessageService = Depends()):
     return await service.remove_message(message_id)
 
+@router.get('/search')
+async def message_search(text: str, skip: int = 0, take: int = 10, service: MessageService = Depends()):
+    return await service.search_message(text, skip, take)
